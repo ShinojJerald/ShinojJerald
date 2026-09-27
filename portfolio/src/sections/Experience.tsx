@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { experience } from '../content';
+import { education, experience } from '../content';
+import { CountUp } from '../components/CountUp';
 import { Reveal, SectionHead } from '../components/SectionHead';
 import { world } from '../lib/world';
 
@@ -53,7 +54,7 @@ export function ExperienceSection() {
               The current <em>I follow.</em>
             </span>
           }
-          lede="From machine learning and teaching to analytics and business intelligence."
+          lede="Since 2016 — data analysis, machine learning and teaching, then analytics at Capital One, and now business intelligence at Navy Federal."
         />
 
         <div className="journey" ref={stream}>
@@ -100,7 +101,7 @@ export function ExperienceSection() {
             </li>
 
             {earlier.map((e, i) => {
-              const expandable = Boolean(e.summary || (e.points && e.points.length));
+              const expandable = Boolean(e.points?.length || e.highlights?.length);
               const isOpen = open === i;
               const head = (
                 <>
@@ -110,6 +111,7 @@ export function ExperienceSection() {
                     {e.org}
                     {e.place && <span className="stream-place"> · {e.place}</span>}
                   </span>
+                  {e.summary && <span className="past-summary">{e.summary}</span>}
                   {expandable && <span className={`chev ${isOpen ? 'is-open' : ''}`} aria-hidden="true" />}
                 </>
               );
@@ -126,7 +128,16 @@ export function ExperienceSection() {
                     )}
                     {expandable && (
                       <div id={`past-${i}`} className="past-panel" hidden={!isOpen}>
-                        {e.summary && <p>{e.summary}</p>}
+                        {e.highlights && (
+                          <dl className="past-stats">
+                            {e.highlights.map((h) => (
+                              <div key={h.label}>
+                                <dt>{h.label}</dt>
+                                <dd>{isOpen ? <CountUp value={h.value} suffix={h.suffix} duration={1100} /> : `${h.value}${h.suffix ?? ''}`}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                        )}
                         {e.points && (
                           <ul>
                             {e.points.map((p) => (
@@ -142,6 +153,19 @@ export function ExperienceSection() {
             })}
           </ol>
         </div>
+
+        <Reveal className="edu">
+          <span className="mono-label">Education</span>
+          <ul>
+            {education.map((ed) => (
+              <li key={ed.school}>
+                <span className="edu-degree">{ed.degree}</span>
+                <span className="edu-school">{ed.school}</span>
+                {ed.period && <span className="edu-period">{ed.period}</span>}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );

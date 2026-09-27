@@ -40,13 +40,16 @@
 
 ## ◆ Journey
 
-<table>
-  <tr><td><b>Business Intelligence Analyst</b> · Navy Federal Credit Union</td><td align="right"><sub>NOW · Vienna, VA · Nov 2025 —</sub></td></tr>
-  <tr><td>Data Analyst · Capital One</td><td></td></tr>
-  <tr><td>Data Analyst · Sagence, Inc.</td><td></td></tr>
-  <tr><td>Graduate Teaching Assistant · George Mason University</td><td></td></tr>
-  <tr><td>Machine Learning Engineer (Internship) · Token Metrics</td><td></td></tr>
-</table>
+| Role | Organisation | When |
+| --- | --- | --- |
+| **Business Intelligence Analyst** | **Navy Federal Credit Union** · Vienna, VA | Nov 2025 — Present |
+| Data Analyst | Capital One · McLean, VA | Mar 2022 — Nov 2025 |
+| Data Analyst | Sagence, Inc. · Chicago, IL | Mar 2021 — Feb 2022 |
+| Graduate Teaching Assistant | George Mason University | May 2019 — Jan 2021 |
+| Machine Learning Engineer (Internship) | Token Metrics · Washington, D.C. | May 2020 — Jul 2020 |
+| Data Analyst | Satvat Infosol Pvt Ltd · India | Feb 2016 — Sep 2018 |
+
+<sub>EDUCATION — Master's degree, Data Analytics · George Mason University (2019 — 2020) &nbsp;·&nbsp; Bachelor of Engineering, Computer Science · Anna University</sub>
 
 ## ◆ Technology ecosystem
 
@@ -109,6 +112,7 @@
 <p>
   <a href="https://shinojjerald.github.io/ShinojJerald/"><b>3D Portfolio</b></a> &nbsp;·&nbsp;
   <a href="https://github.com/ShinojJerald"><b>GitHub</b></a> &nbsp;·&nbsp;
+  <a href="https://www.linkedin.com/in/shinoj-kumar-2a1670176"><b>LinkedIn</b></a> &nbsp;·&nbsp;
   <a href="https://tunekadal.com/"><b>TuneKadal</b></a>
 </p>
 

@@ -281,7 +281,7 @@ em {
   font-family: var(--f-mono);
   font-size: 12px;
   letter-spacing: 0.2em;
-  background: rgba(4, 14, 30, 0.5);
+  background: rgba(4, 14, 30, 0.78);
   border: 1px solid var(--line);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
@@ -294,7 +294,7 @@ em {
   gap: 2px;
   padding: 5px;
   border-radius: 999px;
-  background: rgba(4, 14, 30, 0.5);
+  background: rgba(4, 14, 30, 0.78);
   border: 1px solid var(--line);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
@@ -334,7 +334,7 @@ em {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-3);
-  background: rgba(4, 14, 30, 0.5);
+  background: rgba(4, 14, 30, 0.78);
   border: 1px solid var(--line);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -2749,4 +2749,82 @@ html.calm .tk-copy > * {
 html.calm .pnode-blurb {
   opacity: 1;
   transform: none;
+}
+
+/* Journey details from LinkedIn */
+.past-summary {
+  margin-top: 4px;
+  font-size: 0.93rem;
+  color: var(--ink-3);
+  max-width: 62ch;
+}
+.past-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.past-stats div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(98, 216, 255, 0.04);
+}
+.past-stats dd {
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  background: linear-gradient(180deg, #fff, var(--cyan-soft));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-variant-numeric: tabular-nums;
+}
+.past-stats dt {
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  line-height: 1.35;
+}
+.edu {
+  margin-top: clamp(40px, 7vh, 64px);
+  max-width: 900px;
+  padding-left: 48px;
+}
+.edu ul {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.edu li {
+  display: grid;
+  gap: 3px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.edu-degree {
+  font-weight: 560;
+}
+.edu-school {
+  color: var(--cyan-soft);
+}
+.edu-period {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+@media (max-width: 640px) {
+  .edu {
+    padding-left: 0;
+  }
 }
