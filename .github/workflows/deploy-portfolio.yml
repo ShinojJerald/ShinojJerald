@@ -1,0 +1,61 @@
+# Builds the 3D portfolio in /portfolio and publishes it to GitHub Pages at
+# https://shinojjerald.github.io/ShinojJerald/
+#
+# One-time setup: repository Settings → Pages → Build and deployment →
+# Source: "GitHub Actions".
+
+name: Deploy portfolio to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'portfolio/**'
+      - '.github/workflows/deploy-portfolio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: portfolio
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: portfolio/package-lock.json
+
+      - run: npm ci
+      - run: npm run build
+
+      # Hash links (#about, #tunekadal …) are used for navigation, so a 404 page
+      # that mirrors index.html is enough for any stray deep link.
+      - run: cp dist/index.html dist/404.html
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: portfolio/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
