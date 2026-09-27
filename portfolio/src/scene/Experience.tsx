@@ -8,6 +8,8 @@ import { Particles } from './Particles';
 import { Network } from './Network';
 import { Current, LightRays, Seafloor } from './Environment';
 import { Lighthouse } from './Lighthouse';
+import { CredentialPanels } from './CredentialPanels';
+import { certifications } from '../content';
 
 type Vec3 = [number, number, number];
 type Key = { pos: Vec3; look: Vec3; bg: string; fog: number };
@@ -20,12 +22,13 @@ type Key = { pos: Vec3; look: Vec3; bg: string; fog: number };
 const KEYS: Key[] = [
   { pos: [0, 0.3, 9.5], look: [0, 0, 0], bg: '#030a16', fog: 0.045 }, //              home
   { pos: [-2.6, -2.2, 11.5], look: [1.2, -1.7, 0], bg: '#030b19', fog: 0.042 }, //   about — pull back, core rides high
-  { pos: [0, -6.6, 9], look: [0, -7, 0], bg: '#030c1b', fog: 0.05 }, //              experience
+  { pos: [0, -6.6, 9], look: [0, -7, 0], bg: '#030c1b', fog: 0.05 }, //              journey
   { pos: [1, -12.6, 10], look: [0.5, -13.4, -4], bg: '#030b1c', fog: 0.05 }, //      skills
   { pos: [0, -19, 9], look: [0, -19.6, 0], bg: '#030b1a', fog: 0.055 }, //           projects
   { pos: [-1, -23.6, 8], look: [0, -23.3, -6], bg: '#021622', fog: 0.03 }, //        tunekadal — deeper, greener, clearer water
-  { pos: [0, -31, 9], look: [0, -35.5, -3], bg: '#020d17', fog: 0.05 }, //           github
-  { pos: [-1, -35, 9], look: [-2.5, -33.2, -8], bg: '#030b16', fog: 0.05 }, //       contact
+  { pos: [1, -30.6, 8], look: [-4, -31.2, -4], bg: '#030d1c', fog: 0.062 }, //          certifications — credential panels
+  { pos: [0, -33.4, 9], look: [0, -38, -3], bg: '#020d17', fog: 0.05 }, //           github
+  { pos: [-1, -37, 9], look: [-2.5, -35.2, -8], bg: '#030b16', fog: 0.05 }, //       contact
 ];
 
 const ease = (x: number) => x * x * (3 - 2 * x);
@@ -133,11 +136,12 @@ function World({ tier }: { tier: Exclude<Tier, 'none'> }) {
       <DataCore position={narrow < 1 ? [narrow < 0.5 ? 1.3 : 2, 2.1, -4.5] : [2.5, 0, 0]} detail={tier === 'low' ? 2 : 3} />
       <Particles count={cfg.particles} />
       <Current position={[x(4), -7, -1.5]} count={tier === 'low' ? 260 : 620} />
-      <Network position={[x(3.2), -13.2, -9]} nodes={cfg.network} radius={6} />
+      <Network position={[x(3.2), -13.2, -9]} nodes={cfg.network} radius={6} groups={6} focus="skill" />
       <Network position={[x(-4), -19.8, -9]} nodes={Math.round(cfg.network * 0.45)} radius={3.6} seed={21} />
       {cfg.rays && <LightRays />}
       <Lighthouse position={[x(5.5), -26.6, -9]} />
-      <Seafloor y={-40} cols={tier === 'low' ? 26 : 44} rows={tier === 'low' ? 14 : 22} />
+      <CredentialPanels position={[x(-4.5), -31.3, -6]} count={certifications.length} spread={narrow < 1 ? 0.6 : 1} />
+      <Seafloor y={-42} cols={tier === 'low' ? 26 : 44} rows={tier === 'low' ? 14 : 22} />
     </>
   );
 }

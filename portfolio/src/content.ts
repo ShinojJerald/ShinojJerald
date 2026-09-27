@@ -3,12 +3,17 @@
  *  SINGLE SOURCE OF TRUTH FOR EVERY FACTUAL CLAIM ON THE SITE
  * ─────────────────────────────────────────────────────────────────────────────
  *  Everything rendered about Shinoj lives here so it can be audited in one place.
- *  Rules followed:
- *   • Only facts supplied by Shinoj (resume / brief) or verifiable publicly
- *     (tunekadal.com) are included.
- *   • No invented metrics, dates, employers, certifications or repositories.
- *   • Optional links (LinkedIn, email) are left empty until Shinoj fills them in —
- *     empty values are simply not rendered.
+ *
+ *  Sources:
+ *   • Shinoj's brief (roles, responsibilities, skills, certifications, project names)
+ *   • Public GitHub repositories of github.com/ShinojJerald (repo links + their own
+ *     descriptions, quoted or lightly shortened)
+ *   • tunekadal.com (TuneKadal features and store link)
+ *
+ *  Rules:
+ *   • No invented metrics, dates, employers, certifications, URLs or repositories.
+ *   • Optional fields (dates, years, credential URLs, LinkedIn, email) stay empty
+ *     until verified — empty values are simply not rendered.
  */
 
 export const profile = {
@@ -27,60 +32,67 @@ export const links = {
   portfolio: 'https://shinojjerald.github.io/ShinojJerald/',
   tunekadal: 'https://tunekadal.com/',
   tunekadalAppStore: 'https://apps.apple.com/app/id6773931613',
-  // Fill these in to have them appear in the Contact section automatically.
+  // Fill these in to have them appear in the hero and Contact section automatically.
   linkedin: '',
   email: '',
 };
 
-/* ── ABOUT — the professional story, grouped as a pipeline ─────────────────── */
+const repo = (name: string) => `https://github.com/ShinojJerald/${name}`;
+
+/* ── CURRENT WORK — the professional story, grouped as a pipeline ──────────── */
 export const aboutPipeline = [
   {
     step: '01',
     title: 'Collect',
     lede: 'Structured and unstructured data, gathered and aggregated.',
     detail:
-      'Collecting, aggregating and analysing data from many sources — the unglamorous groundwork every trustworthy report depends on.',
+      'Collecting, aggregating and analysing data from multiple structured and unstructured sources — the groundwork every trustworthy report depends on.',
   },
   {
     step: '02',
     title: 'Analyse',
     lede: 'Trends, patterns and root causes.',
     detail:
-      'Identifying trends and patterns, running root-cause analysis, and forecasting potential costs, risks and profits.',
+      'Identifying trends and patterns, supporting root-cause analysis, and spotting opportunities for operational improvement.',
   },
   {
     step: '03',
     title: 'Visualise',
     lede: 'Dashboards and KPI reporting people actually use.',
     detail:
-      'Developing and maintaining advanced reports and BI dashboards, and producing the KPI reporting that keeps teams aligned.',
+      'Developing and maintaining advanced reporting, dashboards and BI solutions, and producing ongoing KPI reports and data visualisations.',
   },
   {
     step: '04',
     title: 'Decide',
     lede: 'Insight translated into business action.',
     detail:
-      'Communicating insights to stakeholders, answering ad-hoc reporting requests, and using analytics to support business decisions.',
+      'Using analytics and metrics to support process improvement and data-driven forecasts of costs, risks and business initiatives — and communicating findings to stakeholders.',
   },
 ];
 
 export const aboutPrinciples = [
-  'Translating business requirements into precise reporting specifications',
-  'Working side by side with subject-matter experts',
-  'Leading small projects and initiatives end to end',
+  'Translating business requirements into report and analysis specifications',
+  'Working with team members and subject-matter experts',
+  'Supporting ad-hoc reporting requests',
+  'Leading small projects and initiatives',
 ];
 
-/* ── EXPERIENCE ─────────────────────────────────────────────────────────────── */
+/* ── PROFESSIONAL JOURNEY ───────────────────────────────────────────────────── */
 export type ExperienceItem = {
   org: string;
   role: string;
-  period: string;
+  /** Leave empty until verified — nothing is rendered for an empty period. */
+  period?: string;
   place?: string;
   current?: boolean;
-  summary: string;
-  points: string[];
+  summary?: string;
+  /** Capabilities shown as chips on the current role. */
+  capabilities?: string[];
+  points?: string[];
 };
 
+// Order follows the brief (most recent first).
 export const experience: ExperienceItem[] = [
   {
     org: 'Navy Federal Credit Union',
@@ -88,30 +100,21 @@ export const experience: ExperienceItem[] = [
     period: 'November 2025 — Present',
     place: 'Vienna, Virginia',
     current: true,
-    summary:
-      'Turning organisational data into reporting, dashboards and analysis that support business decisions.',
+    summary: 'Reporting, dashboards and analysis that support business decisions.',
+    capabilities: ['BI dashboards', 'KPI reporting', 'Root-cause analysis', 'Forecasting', 'Stakeholder insights', 'Requirements → report specs'],
     points: [
-      'Collect, aggregate and analyse structured and unstructured data',
-      'Develop and maintain advanced reports and BI dashboards',
-      'Produce KPI reporting and perform root-cause analysis',
-      'Forecast potential costs, risks and profits',
-      'Translate business requirements into reporting specifications',
-      'Respond to ad-hoc reporting requests and communicate insights to stakeholders',
-      'Partner with subject-matter experts and lead small projects and initiatives',
+      'Collect, aggregate and analyse data from multiple structured and unstructured sources',
+      'Develop and maintain advanced reporting, dashboards and BI solutions',
+      'Produce KPI reports, identify operational improvement opportunities and support root-cause analysis',
+      'Use analytics and metrics to support process improvement and forecasts of costs, risks and initiatives',
+      'Translate business requirements into report and analysis specifications',
+      'Communicate findings to stakeholders, support ad-hoc requests and lead small initiatives',
     ],
   },
-  {
-    org: 'TuneKadal',
-    role: 'Independent product — design & build',
-    period: 'Personal project',
-    summary:
-      'Designed and shipped a Tamil radio app and website with 244+ stations, available on Android and iOS.',
-    points: [
-      'Station discovery, favourites and lock-screen / background playback',
-      'AI station guide and multiple visual themes',
-      'Ocean-inspired visual identity carried from app to web',
-    ],
-  },
+  { org: 'Capital One', role: 'Data Analyst' },
+  { org: 'Sagence, Inc.', role: 'Data Analyst' },
+  { org: 'George Mason University', role: 'Graduate Teaching Assistant' },
+  { org: 'Token Metrics', role: 'Machine Learning Engineer · Internship' },
 ];
 
 /* ── SKILLS — a connected ecosystem. No proficiency levels are claimed. ─────── */
@@ -137,10 +140,16 @@ export const skillClusters: SkillCluster[] = [
     skills: ['Python', 'R', 'PySpark', 'EDA', 'Statistical Analysis', 'Web Scraping'],
   },
   {
+    id: 'ml',
+    label: 'Machine Learning',
+    caption: 'Models from my GitHub work',
+    skills: ['Classification', 'Regression', 'Clustering', 'Neural Networks', 'NLP', 'Computer Vision', 'PCA / LDA'],
+  },
+  {
     id: 'cloud',
     label: 'Cloud & Platforms',
     caption: 'Where the data lives',
-    skills: ['Databricks', 'AWS S3'],
+    skills: ['Azure', 'AWS (S3)', 'Databricks'],
   },
   {
     id: 'auto',
@@ -150,46 +159,171 @@ export const skillClusters: SkillCluster[] = [
   },
 ];
 
-/* ── PROJECTS ───────────────────────────────────────────────────────────────── */
+/* ── PROJECT UNIVERSE ───────────────────────────────────────────────────────── */
+export type ProjectKind = 'analytics' | 'ml' | 'nlp' | 'viz' | 'product';
+
+export const projectKinds: Record<ProjectKind, { label: string; short: string }> = {
+  analytics: { label: 'Analytics & BI', short: 'Analytics' },
+  viz: { label: 'Visualisation', short: 'Visualisation' },
+  ml: { label: 'Machine learning', short: 'ML' },
+  nlp: { label: 'NLP & computer vision', short: 'NLP · Vision' },
+  product: { label: 'Product & web', short: 'Product' },
+};
+
+export type ProjectLink = { label: string; href: string };
 export type Project = {
   id: string;
-  kicker: string;
+  kind: ProjectKind;
   title: string;
-  body: string;
+  /** One line shown on hover. */
+  blurb: string;
+  /** Longer text shown when opened. Quoted/shortened from the repo where one exists. */
+  detail?: string;
   tags: string[];
-  href?: string;
-  hrefLabel?: string;
+  links: ProjectLink[];
   anchor?: string;
 };
 
 export const projects: Project[] = [
   {
     id: 'tunekadal',
-    kicker: 'Featured product',
+    kind: 'product',
     title: 'TuneKadal',
-    body: 'An ocean of Tamil radio. 244+ stations, Android and iOS apps, and a companion website.',
-    tags: ['Mobile app', 'Web', 'Audio streaming', 'Product design'],
+    blurb: 'An ocean of Tamil radio — 244+ stations on Android and iOS, plus a website.',
+    detail:
+      'A Tamil radio app and website I designed and built: station discovery, favourites, lock-screen / background playback, an AI station guide and multiple ocean-inspired themes.',
+    tags: ['React Native', 'Expo', 'Android', 'iOS', 'Web'],
+    links: [
+      { label: 'tunekadal.com', href: 'https://tunekadal.com/' },
+      { label: 'App Store', href: 'https://apps.apple.com/app/id6773931613' },
+    ],
     anchor: '#tunekadal',
-    hrefLabel: 'Enter the lighthouse',
   },
   {
-    id: 'bi',
-    kicker: 'Professional practice',
-    title: 'BI dashboards & KPI reporting',
-    body: 'Advanced reports, dashboards and KPI reporting built and maintained as a Business Intelligence Analyst at Navy Federal Credit Union. Internal work — described, not shown.',
-    tags: ['Power BI', 'SQL', 'KPI reporting', 'Root-cause analysis'],
-    anchor: '#experience',
-    hrefLabel: 'See the role',
+    id: 'covid-sentiment',
+    kind: 'nlp',
+    title: 'Sentiment Analysis on COVID-19 using Twitter Tweets',
+    blurb: 'Sentiment analysis of COVID-19 tweets.',
+    tags: ['NLP', 'Sentiment analysis', 'Jupyter Notebook'],
+    links: [{ label: 'Repository', href: repo('Sentiment-Analysis-on-COVID-19-using-Twitter-Tweets') }],
+  },
+  {
+    id: 'image-captioning',
+    kind: 'nlp',
+    title: 'Image Recognition and Captioning using Computer Vision and NLP',
+    blurb: 'Semantic alignments between images and language for captioning.',
+    detail: 'Image recognition semantic alignments for image captioning using computer vision and natural language processing.',
+    tags: ['Computer vision', 'NLP', 'Jupyter Notebook'],
+    links: [{ label: 'Repository', href: repo('Image-Captioning-Computer-Vision-and-NLP-') }],
+  },
+  {
+    id: 'heart-disease',
+    kind: 'ml',
+    title: 'Heart Disease Prediction using Classification and Artificial Neural Networks',
+    blurb: 'Classification models and an ANN to predict heart disease.',
+    detail:
+      'Machine-learning classifiers for predicting heart disease, with hypothesis testing on the results — and an artificial neural network that predicts the likelihood of heart disease from various health conditions.',
+    tags: ['Classification', 'Neural network', 'Python'],
+    links: [
+      { label: 'Classification repo', href: repo('Heart-Disease-Prediction') },
+      { label: 'ANN repo', href: repo('Artificial-Neural-Networks') },
+    ],
+  },
+  {
+    id: 'hospitality-price',
+    kind: 'ml',
+    title: 'Hospitality Business Price Predictions using Regression',
+    blurb: 'Regression on New York City stays — price, reviews, location, host, amenities.',
+    detail:
+      'Analyses a dataset of reviews from customers around the world who travelled to New York City, predicting price from review, location, host and amenities.',
+    tags: ['Regression', 'Jupyter Notebook'],
+    links: [{ label: 'Repository', href: repo('The-hospitality-business-Price-Prediction.') }],
+  },
+  {
+    id: 'ny-crime',
+    kind: 'viz',
+    title: 'New York Crime Rate in the Year 2014',
+    blurb: 'Exploring rising crime rates in New York City and the reasons behind them.',
+    detail: 'An analysis of the increasing crime rates in New York City and an exploration of the reasons behind it.',
+    tags: ['Visualisation', 'Jupyter Notebook'],
+    links: [{ label: 'Repository', href: repo('New-York-Crime-Visualization') }],
+  },
+  {
+    id: 'sales-agent',
+    kind: 'analytics',
+    title: 'Sales Agent Analytics',
+    blurb: 'An analytics project on sales-agent data.',
+    tags: ['Analytics'],
+    links: [],
+  },
+  {
+    id: 'northwind',
+    kind: 'analytics',
+    title: 'Shipping Analytics — Northwind',
+    blurb: 'Shipping analytics on the Northwind dataset.',
+    tags: ['Analytics'],
+    links: [],
+  },
+  {
+    id: 'hr-report',
+    kind: 'analytics',
+    title: 'HR Analytical Report',
+    blurb: 'An analytical report on HR data.',
+    tags: ['Analytics', 'Reporting'],
+    links: [],
   },
   {
     id: 'observatory',
-    kicker: 'Open source',
+    kind: 'product',
     title: 'This observatory',
-    body: 'The site you are exploring: a React, TypeScript and Three.js scene with custom shaders, device-aware rendering and a full no-WebGL fallback.',
+    blurb: 'The site you are exploring — React, TypeScript and Three.js.',
+    detail: 'Custom GLSL shaders, a scroll-driven camera, device-aware rendering, reduced-motion support and a full no-WebGL fallback.',
     tags: ['React', 'TypeScript', 'Three.js', 'GLSL'],
-    href: 'https://github.com/ShinojJerald/ShinojJerald',
-    hrefLabel: 'View the source',
+    links: [{ label: 'Source', href: 'https://github.com/ShinojJerald/ShinojJerald' }],
   },
+];
+
+/** Other public repositories — practice work in ML and NLP. */
+export const labRepos: { name: string; href: string; lang: string }[] = [
+  { name: 'Model-Selection', href: repo('Model-Selection'), lang: 'HTML' },
+  { name: 'Classification-models', href: repo('Classification-models'), lang: 'Python' },
+  { name: 'Regression-Models', href: repo('Regression-Models'), lang: 'Jupyter' },
+  { name: 'Clustering-Algorithms', href: repo('Clustering-Algorithms'), lang: 'Python' },
+  { name: 'Association-Rule-Learning', href: repo('Association-Rule-Learning'), lang: 'Python' },
+  { name: 'Reinforcement-Learning', href: repo('Reinforcement-Learning'), lang: 'Jupyter' },
+  { name: 'Deep-Learning', href: repo('Deep-Learning'), lang: 'Jupyter' },
+  { name: 'Dimensionality-reduction--PCA', href: repo('Dimensionality-reduction--PCA'), lang: 'R' },
+  { name: 'Dimensionality-Reduction--LDA', href: repo('Dimensionality-Reduction--LDA'), lang: 'R' },
+  { name: 'Dimensionality-Reduction---Kernel-PCA', href: repo('Dimensionality-Reduction---Kernel-PCA'), lang: 'R' },
+  { name: 'Cancer-Prediction', href: repo('Cancer-Prediction'), lang: 'Jupyter' },
+  { name: 'Eliza-Chatbot', href: repo('Eliza-Chatbot'), lang: 'Python' },
+  { name: 'Natural-Language-Processing', href: repo('Natural-Language-Processing'), lang: 'Jupyter' },
+];
+
+/* ── CERTIFICATIONS — names and issuers exactly as supplied ─────────────────── */
+export type Certification = {
+  name: string;
+  issuer: string;
+  /** Leave empty until verified. */
+  year?: string;
+  /** Leave empty until verified — never guessed. */
+  url?: string;
+  area: 'data' | 'ml' | 'web';
+};
+
+export const certifications: Certification[] = [
+  { name: 'Advanced Data Science Specialist', issuer: 'IBM', area: 'ml' },
+  { name: 'Advanced Data Science with IBM', issuer: 'IBM', area: 'ml' },
+  { name: 'Applied AI with DeepLearning', issuer: 'IBM', area: 'ml' },
+  { name: 'Advanced Machine Learning and Signal Processing', issuer: 'IBM', area: 'ml' },
+  { name: 'Fundamentals of Scalable Data Science', issuer: 'IBM', area: 'data' },
+  { name: 'Machine Learning A-Z: Hands-On Python & R in Data Science', issuer: 'SuperDataScience', area: 'ml' },
+  { name: 'Master Tableau for Data Science', issuer: 'Udemy', area: 'data' },
+  { name: 'Face Recognition AI Using Python', issuer: 'Udemy', area: 'ml' },
+  { name: 'SQL Masterclass: SQL for Data Analytics', issuer: 'Start-Tech Academy', area: 'data' },
+  { name: 'Time Series Analysis and Forecasting using Python', issuer: 'Start-Tech Academy', area: 'data' },
+  { name: 'SQL Badge', issuer: 'HackerRank', area: 'data' },
+  { name: 'Responsive Web Design', issuer: 'freeCodeCamp', area: 'web' },
 ];
 
 /* ── TUNEKADAL (verified against tunekadal.com) ─────────────────────────────── */
@@ -200,9 +334,10 @@ export const tunekadal = {
   intro:
     'A listening experience built around Tamil radio — gathering stations from across the world into one calm, ocean-themed app.',
   stats: [
-    { value: '244+', label: 'Tamil radio stations' },
-    { value: '2', label: 'Platforms — Android & iOS' },
+    { value: 244, suffix: '+', label: 'Tamil radio stations' },
+    { value: 2, suffix: '', label: 'Platforms — Android & iOS' },
   ],
+  stack: ['React Native', 'Expo', 'Android', 'iOS', 'Web'],
   features: [
     { title: 'Station discovery', body: 'Explore Tamil stations from around the world.' },
     { title: 'Favourites', body: 'Keep the stations you love one tap away.' },

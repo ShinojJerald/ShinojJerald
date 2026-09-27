@@ -70,7 +70,7 @@ export function GitHub() {
     <section id="github" className="section gh" aria-labelledby="gh-title">
       <div className="container">
         <SectionHead
-          index="06"
+          index="07"
           kicker="GitHub · Open source"
           title={
             <span id="gh-title">

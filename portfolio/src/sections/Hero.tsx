@@ -33,6 +33,22 @@ export function Hero() {
             </svg>
           </a>
         </div>
+        <ul className="hero-links" aria-label="Profiles">
+          <li>
+            <a href={links.github} target="_blank" rel="noreferrer">GitHub</a>
+          </li>
+          {links.linkedin && (
+            <li>
+              <a href={links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            </li>
+          )}
+          <li>
+            <a href={links.tunekadal} target="_blank" rel="noreferrer">TuneKadal</a>
+          </li>
+          <li>
+            <a href="#certifications">Credentials</a>
+          </li>
+        </ul>
       </div>
 
       <div className="hero-scroll" aria-hidden="true">

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { links, tunekadal } from '../content';
 import { beamFacing, world } from '../lib/world';
+import { CountUp } from '../components/CountUp';
 
 /**
  * The lighthouse sequence. The copy waits in the dark; when the sweeping beam
@@ -63,7 +64,7 @@ export function TuneKadal({ webgl }: { webgl: boolean }) {
           <p className="eyebrow">
             <span className="eyebrow-index">05</span>
             <span className="eyebrow-rule" aria-hidden="true" />
-            Featured product
+            Flagship product · live
           </p>
           <h2 id="tk-title" className="tk-title">
             {tunekadal.name}
@@ -78,10 +79,18 @@ export function TuneKadal({ webgl }: { webgl: boolean }) {
             {tunekadal.stats.map((s) => (
               <div key={s.label}>
                 <dt>{s.label}</dt>
-                <dd>{s.value}</dd>
+                <dd>
+                  <CountUp value={s.value} suffix={s.suffix} />
+                </dd>
               </div>
             ))}
           </dl>
+
+          <ul className="tk-stack" aria-label="Built with">
+            {tunekadal.stack.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
 
           <div className="tk-wave" aria-hidden="true">
             {Array.from({ length: 48 }).map((_, i) => (

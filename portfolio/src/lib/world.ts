@@ -10,6 +10,7 @@ export const SECTION_IDS = [
   'skills',
   'projects',
   'tunekadal',
+  'certifications',
   'github',
   'contact',
 ] as const;
@@ -29,6 +30,10 @@ export const world = {
   hoverBoost: 0,
   /** 0 → 1: raised while the "light the lamp" control is hovered/active */
   lighthouse: 0,
+  /** Index of the skill cluster being explored (-1 = none) */
+  skillFocus: -1,
+  /** Index of the credential being hovered (-1 = none) */
+  credFocus: -1,
   reducedMotion: false,
 };
 

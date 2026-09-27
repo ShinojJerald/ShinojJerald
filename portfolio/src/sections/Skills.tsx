@@ -12,7 +12,8 @@ export function Skills() {
   const n = skillClusters.length;
   const focus = (id: string | null) => {
     setActive(id);
-    world.hoverBoost = id ? 0.35 : 0;
+    // Lights up the matching cluster in the 3D network behind this section.
+    world.skillFocus = id ? skillClusters.findIndex((c) => c.id === id) : -1;
   };
 
   return (
@@ -26,7 +27,7 @@ export function Skills() {
               One ecosystem, <em>many currents.</em>
             </span>
           }
-          lede="The tools I work with, grouped by what they do in the journey from source to insight."
+          lede="The tools I work with, grouped by what they do between source and insight. Explore a group to light up its cluster."
         />
 
         <Reveal className={`eco ${active ? 'has-focus' : ''}`}>

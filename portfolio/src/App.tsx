@@ -10,6 +10,7 @@ import { ExperienceSection } from './sections/Experience';
 import { Skills } from './sections/Skills';
 import { Projects } from './sections/Projects';
 import { TuneKadal } from './sections/TuneKadal';
+import { Certifications } from './sections/Certifications';
 import { GitHub } from './sections/GitHub';
 import { Contact } from './sections/Contact';
 
@@ -68,6 +69,7 @@ export default function App() {
         <Skills />
         <Projects />
         <TuneKadal webgl={webgl} />
+        <Certifications />
         <GitHub />
         <Contact />
       </main>

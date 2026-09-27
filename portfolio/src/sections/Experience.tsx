@@ -1,63 +1,145 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { experience } from '../content';
 import { Reveal, SectionHead } from '../components/SectionHead';
+import { world } from '../lib/world';
 
+/**
+ * Professional journey. The current role is a prominent panel at the head of
+ * the current; earlier roles are nodes further along it. The line fills as the
+ * visitor scrolls, and each node lights up as the fill reaches it.
+ */
 export function ExperienceSection() {
-  const [open, setOpen] = useState<number>(0);
+  const stream = useRef<HTMLDivElement>(null);
+  const [openCurrent, setOpenCurrent] = useState(false);
+  const [open, setOpen] = useState<number>(-1);
+  const [current, ...earlier] = experience;
+
+  useEffect(() => {
+    const el = stream.current;
+    if (!el) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const p = Math.min(1, Math.max(0, (vh * 0.62 - r.top) / Math.max(1, r.height)));
+      el.style.setProperty('--prog', world.reducedMotion ? '1' : p.toFixed(4));
+      el.querySelectorAll<HTMLElement>('[data-node]').forEach((n) => {
+        const nr = n.getBoundingClientRect();
+        n.classList.toggle('is-passed', world.reducedMotion || nr.top < vh * 0.62);
+      });
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
   return (
     <section id="experience" className="section experience" aria-labelledby="exp-title">
       <div className="container">
         <SectionHead
           index="02"
-          kicker="Experience"
+          kicker="Professional journey"
           title={
             <span id="exp-title">
               The current <em>I follow.</em>
             </span>
           }
-          lede="Select a node to open it."
+          lede="From machine learning and teaching to analytics and business intelligence."
         />
-        <div className="stream">
-          <span className="stream-line" aria-hidden="true">
-            <i />
+
+        <div className="journey" ref={stream}>
+          <span className="journey-line" aria-hidden="true">
+            <i className="journey-fill" />
+            <i className="journey-spark" />
           </span>
-          <ol className="stream-list">
-          {experience.map((e, i) => {
-            const isOpen = open === i;
-            return (
-              <Reveal as="li" key={e.org} className={`stream-item ${isOpen ? 'is-open' : ''}`} delay={i * 90}>
-                <span className={`stream-node ${e.current ? 'is-current' : ''}`} aria-hidden="true" />
-                <button
-                  type="button"
-                  className="stream-head"
-                  aria-expanded={isOpen}
-                  aria-controls={`exp-panel-${i}`}
-                  onClick={() => setOpen(isOpen ? -1 : i)}
-                >
-                  <span className="stream-period">
-                    {e.current && <span className="tag-live">Now</span>}
-                    {e.period}
-                  </span>
-                  <span className="stream-role">{e.role}</span>
-                  <span className="stream-org">
-                    {e.org}
-                    {e.place ? <span className="stream-place"> · {e.place}</span> : null}
-                  </span>
-                  <span className="stream-chevron" aria-hidden="true" />
-                </button>
-                <div className="stream-panel" id={`exp-panel-${i}`} hidden={!isOpen}>
-                  <div className="stream-panel-inner glass">
-                    <p className="stream-summary">{e.summary}</p>
-                    <ul>
-                      {e.points.map((p) => (
+
+          <ol className="journey-list">
+            <li className="journey-item journey-current" data-node>
+              <span className="journey-node is-current" aria-hidden="true" />
+              <Reveal className="now-card glass">
+                <div className="now-top">
+                  <span className="tag-live">Now</span>
+                  {current.period && <span className="now-period">{current.period}</span>}
+                </div>
+                <h3 className="now-role">{current.role}</h3>
+                <p className="now-org">
+                  {current.org}
+                  {current.place && <span> · {current.place}</span>}
+                </p>
+                {current.summary && <p className="now-summary">{current.summary}</p>}
+                {current.capabilities && (
+                  <ul className="now-caps" aria-label="Capabilities">
+                    {current.capabilities.map((c) => (
+                      <li key={c}>{c}</li>
+                    ))}
+                  </ul>
+                )}
+                {current.points && current.points.length > 0 && (
+                  <>
+                    <button type="button" className="now-toggle" aria-expanded={openCurrent} aria-controls="now-points" onClick={() => setOpenCurrent((o) => !o)}>
+                      {openCurrent ? 'Hide responsibilities' : 'View responsibilities'}
+                      <span className={`chev ${openCurrent ? 'is-open' : ''}`} aria-hidden="true" />
+                    </button>
+                    <ul id="now-points" className="now-points" hidden={!openCurrent}>
+                      {current.points.map((p) => (
                         <li key={p}>{p}</li>
                       ))}
                     </ul>
-                  </div>
-                </div>
+                  </>
+                )}
               </Reveal>
-            );
-          })}
+            </li>
+
+            {earlier.map((e, i) => {
+              const expandable = Boolean(e.summary || (e.points && e.points.length));
+              const isOpen = open === i;
+              const head = (
+                <>
+                  {e.period && <span className="past-period">{e.period}</span>}
+                  <span className="past-role">{e.role}</span>
+                  <span className="past-org">
+                    {e.org}
+                    {e.place && <span className="stream-place"> · {e.place}</span>}
+                  </span>
+                  {expandable && <span className={`chev ${isOpen ? 'is-open' : ''}`} aria-hidden="true" />}
+                </>
+              );
+              return (
+                <li key={e.org + e.role} className="journey-item" data-node>
+                  <span className="journey-node" aria-hidden="true" />
+                  <Reveal className="past" delay={i * 70}>
+                    {expandable ? (
+                      <button type="button" className="past-head" aria-expanded={isOpen} aria-controls={`past-${i}`} onClick={() => setOpen(isOpen ? -1 : i)}>
+                        {head}
+                      </button>
+                    ) : (
+                      <div className="past-head">{head}</div>
+                    )}
+                    {expandable && (
+                      <div id={`past-${i}`} className="past-panel" hidden={!isOpen}>
+                        {e.summary && <p>{e.summary}</p>}
+                        {e.points && (
+                          <ul>
+                            {e.points.map((p) => (
+                              <li key={p}>{p}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    )}
+                  </Reveal>
+                </li>
+              );
+            })}
           </ol>
         </div>
       </div>

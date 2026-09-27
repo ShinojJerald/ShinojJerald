@@ -15,7 +15,7 @@ export function Contact() {
       <div className="container contact-inner">
         <Reveal>
           <p className="eyebrow">
-            <span className="eyebrow-index">07</span>
+            <span className="eyebrow-index">08</span>
             <span className="eyebrow-rule" aria-hidden="true" />
             Contact
           </p>
