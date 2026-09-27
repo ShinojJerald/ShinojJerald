@@ -15,6 +15,7 @@ export function Hud() {
   useEffect(() => {
     let raf = 0;
     let last = '';
+    let lastDeg = -1;
     const tick = () => {
       const d = Math.round(world.progress * 1200);
       const idx = Math.min(SECTION_IDS.length - 1, Math.floor(world.section));
@@ -26,9 +27,10 @@ export function Hud() {
         if (sec.current) sec.current.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(SECTION_IDS.length).padStart(2, '0')}  ${SECTION_IDS[idx].toUpperCase()}`;
         if (bar.current) bar.current.style.transform = `scaleY(${world.progress})`;
       }
-      if (brg.current) {
-        const deg = ((Math.atan2(world.pointerX, world.pointerY) * 180) / Math.PI + 360) % 360;
-        brg.current.textContent = `${String(Math.round(deg)).padStart(3, '0')}°`;
+      const deg = Math.round(((Math.atan2(world.pointerX, world.pointerY) * 180) / Math.PI + 360) % 360);
+      if (brg.current && deg !== lastDeg) {
+        lastDeg = deg;
+        brg.current.textContent = `${String(deg).padStart(3, '0')}°`;
       }
       raf = requestAnimationFrame(tick);
     };

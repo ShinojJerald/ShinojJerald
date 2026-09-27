@@ -34,8 +34,19 @@ export const world = {
   skillFocus: -1,
   /** Index of the credential being hovered (-1 = none) */
   credFocus: -1,
+  /** 1 while a project node is hovered */
+  projectFocus: 0,
   reducedMotion: false,
 };
+
+/** 1 when the camera is within `inner` units (vertically) of y, fading to 0 at `outer`. */
+export function proximity(cameraY: number, y: number, inner: number, outer: number): number {
+  const d = Math.abs(cameraY - y);
+  if (d <= inner) return 1;
+  if (d >= outer) return 0;
+  const t = (d - inner) / (outer - inner);
+  return 1 - t * t * (3 - 2 * t);
+}
 
 /* ── Lighthouse beam: one clock shared by the 3D beam and the DOM reveal ────── */
 export const BEAM_PERIOD = 11; // seconds per sweep

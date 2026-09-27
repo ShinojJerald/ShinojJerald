@@ -137,9 +137,9 @@ function World({ tier }: { tier: Exclude<Tier, 'none'> }) {
       <Particles count={cfg.particles} />
       <Current position={[x(4), -7, -1.5]} count={tier === 'low' ? 260 : 620} />
       <Network position={[x(3.2), -13.2, -9]} nodes={cfg.network} radius={6} groups={6} focus="skill" />
-      <Network position={[x(-4), -19.8, -9]} nodes={Math.round(cfg.network * 0.45)} radius={3.6} seed={21} />
+      <Network position={[x(-4), -19.8, -9]} nodes={Math.round(cfg.network * 0.45)} radius={3.6} seed={21} focus="project" />
       {cfg.rays && <LightRays />}
-      <Lighthouse position={[x(5.5), -26.6, -9]} />
+      <Lighthouse position={[x(5.5), narrow < 1 ? -24.8 : -26.6, -9]} />
       <CredentialPanels position={[x(-4.5), -31.3, -6]} count={certifications.length} spread={narrow < 1 ? 0.6 : 1} />
       <Seafloor y={-42} cols={tier === 'low' ? 26 : 44} rows={tier === 'low' ? 14 : 22} />
     </>

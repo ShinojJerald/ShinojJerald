@@ -10,7 +10,7 @@ export function About() {
       <div className="container">
         <SectionHead
           index="01"
-          kicker="Profile"
+          kicker="Current work · Navy Federal"
           title={
             <span id="about-title">
               From raw signal <em>to decision.</em>

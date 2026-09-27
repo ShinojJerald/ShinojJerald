@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { world } from '../lib/world';
+import { proximity, world } from '../lib/world';
 
 /** Deterministic PRNG so the constellation is the same on every visit. */
 function mulberry32(a: number) {
@@ -22,7 +22,7 @@ type Props = {
   /** When set, nodes form this many clusters around a hub (one per skill group). */
   groups?: number;
   /** Which shared focus value lights up a cluster. */
-  focus?: 'skill';
+  focus?: 'skill' | 'project';
 };
 
 const BASE = new THREE.Color('#4aa8ff');
@@ -36,6 +36,8 @@ const HOT = new THREE.Color('#b8f1ff');
 export function Network({ position, nodes, radius = 5, seed = 7, groups = 0, focus }: Props) {
   const group = useRef<THREE.Group>(null);
   const pts = useRef<THREE.Points>(null);
+  const lines = useRef<THREE.LineSegments>(null);
+  const boost = useRef(0);
   const glow = useRef<number[]>([]);
 
   const { pointGeo, lineGeo, nodeGroup, segGroup } = useMemo(() => {
@@ -123,6 +125,8 @@ export function Network({ position, nodes, radius = 5, seed = 7, groups = 0, foc
   useFrame((state, dt) => {
     const gr = group.current;
     if (!gr) return;
+    gr.visible = proximity(state.camera.position.y, position[1], 7, 12) > 0;
+    if (!gr.visible) return;
     const k = world.reducedMotion ? 0.15 : 1;
     gr.rotation.y += dt * (0.025 + world.velocity * 0.15) * k;
     gr.rotation.x = THREE.MathUtils.damp(gr.rotation.x, 0.12 + world.pointerY * 0.08, 1.5, dt);
@@ -130,6 +134,11 @@ export function Network({ position, nodes, radius = 5, seed = 7, groups = 0, foc
       (pts.current.material as THREE.PointsMaterial).size = 0.07 + Math.sin(state.clock.elapsedTime * 1.4 * k) * 0.012;
     }
 
+    if (focus === 'project') {
+      boost.current = THREE.MathUtils.damp(boost.current, world.projectFocus, 4, dt);
+      if (lines.current) (lines.current.material as THREE.LineBasicMaterial).opacity = 0.4 + boost.current * 0.45;
+      gr.rotation.y += dt * boost.current * 0.12 * k;
+    }
     if (!groups || focus !== 'skill') return;
     // Ease each cluster's glow toward the focused state, then recolour.
     const target = world.skillFocus;
@@ -160,7 +169,7 @@ export function Network({ position, nodes, radius = 5, seed = 7, groups = 0, foc
 
   return (
     <group ref={group} position={position}>
-      <lineSegments geometry={lineGeo}>
+      <lineSegments ref={lines} geometry={lineGeo}>
         <lineBasicMaterial vertexColors transparent opacity={0.4} blending={THREE.AdditiveBlending} depthWrite={false} />
       </lineSegments>
       <points ref={pts} geometry={pointGeo}>

@@ -9,7 +9,7 @@ export function Hero() {
           Data observatory · {profile.location}
         </p>
         <h1 id="hero-title" className="hero-title">
-          <span className="hero-line">Shinoj</span>
+          <span className="hero-line">Shinoj</span>{' '}
           <span className="hero-line hero-line-2">Jerald</span>
         </h1>
         <p className="hero-role">{profile.role}</p>
@@ -18,6 +18,11 @@ export function Hero() {
             <li key={d}>{d}</li>
           ))}
         </ul>
+        <a className="hero-now" href="#about">
+          <span className="tag-live">Now</span>
+          <span className="hero-now-org">{profile.current.org}</span>
+          <span className="hero-now-period">{profile.current.period}</span>
+        </a>
         <p className="hero-statement">{profile.statement}</p>
         <div className="hero-ctas">
           <a className="btn btn-primary" href="#about">

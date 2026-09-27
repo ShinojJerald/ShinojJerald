@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { world } from '../lib/world';
+import { proximity, world } from '../lib/world';
 import { palette } from './glsl';
 
 const vert = /* glsl */ `
@@ -13,6 +13,7 @@ ${palette}
 uniform float uHot;
 uniform float uTime;
 uniform float uSeed;
+uniform float uFade;
 varying vec2 vUv;
 void main(){
   vec2 d = min(vUv, 1.0 - vUv);
@@ -25,6 +26,7 @@ void main(){
   float scan = smoothstep(0.03, 0.0, abs(fract(vUv.y - uTime * 0.05 + uSeed) - 0.5)) * 0.25;
   float a = fill + edge * (0.45 + uHot * 0.5) + (ring + rule1 + rule2) * (0.18 + uHot * 0.3) + scan * (0.3 + uHot);
   vec3 col = mix(ELEC, CYAN, 0.35 + uHot * 0.65);
+  a *= uFade;
   gl_FragColor = vec4(col * a, a * 0.9);
 }`;
 
@@ -53,7 +55,7 @@ export function CredentialPanels({ position, count, spread = 1 }: { position: [n
         depthWrite: false,
         side: THREE.DoubleSide,
         blending: THREE.AdditiveBlending,
-        uniforms: { uHot: { value: 0 }, uTime: { value: 0 }, uSeed: { value: i * 0.137 } },
+        uniforms: { uHot: { value: 0 }, uTime: { value: 0 }, uSeed: { value: i * 0.137 }, uFade: { value: 0 } },
       });
       return {
         geo,
@@ -69,6 +71,9 @@ export function CredentialPanels({ position, count, spread = 1 }: { position: [n
     const t = state.clock.elapsedTime * (world.reducedMotion ? 0.15 : 1);
     const g = group.current;
     if (!g) return;
+    const fade = proximity(state.camera.position.y, position[1], 1.2, 4.2);
+    g.visible = fade > 0.01;
+    if (!g.visible) return;
     g.scale.setScalar(spread);
     g.children.forEach((m, i) => {
       const p = panels[i];
@@ -76,6 +81,7 @@ export function CredentialPanels({ position, count, spread = 1 }: { position: [n
       hot.current[i] = h;
       p.mat.uniforms.uHot.value = h;
       p.mat.uniforms.uTime.value = t;
+      p.mat.uniforms.uFade.value = fade * 0.8;
       m.position.set(p.base.x, p.base.y + Math.sin(t * 0.5 + p.phase) * 0.08 + h * 0.25, p.base.z + h * 0.9);
       m.rotation.set(Math.sin(t * 0.3 + p.phase) * 0.04, p.rotY + world.pointerX * 0.06, 0);
     });

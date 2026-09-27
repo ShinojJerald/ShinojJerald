@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { world } from '../lib/world';
+import { proximity, world } from '../lib/world';
 import { palette, simplex3 } from './glsl';
 
 /* ─────────────────────────────  Ocean current (Experience)  ───────────────── */
@@ -56,11 +56,15 @@ export function Current({ position, count }: { position: [number, number, number
     });
     return { geo: g, mat: m };
   }, [count]);
+  const ref = useRef<THREE.Points>(null);
   useFrame((st) => {
+    const vis = proximity(st.camera.position.y, position[1], 6, 11) > 0;
+    if (ref.current) ref.current.visible = vis;
+    if (!vis) return;
     mat.uniforms.uTime.value = st.clock.elapsedTime * (world.reducedMotion ? 0.2 : 1);
     mat.uniforms.uVel.value = world.reducedMotion ? 0 : world.velocity;
   });
-  return <points position={position} geometry={geo} material={mat} />;
+  return <points ref={ref} position={position} geometry={geo} material={mat} />;
 }
 
 /* ─────────────────────────────  Light rays from the surface  ──────────────── */
@@ -180,6 +184,8 @@ export function Seafloor({ y, cols, rows }: { y: number; cols: number; rows: num
     return { mesh: im, mat: m };
   }, [cols, rows]);
   useFrame((st) => {
+    mesh.visible = st.camera.position.y < y + 16;
+    if (!mesh.visible) return;
     mat.uniforms.uTime.value = st.clock.elapsedTime * (world.reducedMotion ? 0.2 : 1);
   });
   return <primitive object={mesh} position={[0, y, 0]} />;

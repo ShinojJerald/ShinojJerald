@@ -22,7 +22,8 @@ export const profile = {
   role: 'Business Intelligence Analyst',
   disciplines: ['Data Analytics', 'BI', 'Python', 'SQL', 'Power BI'],
   statement:
-    'I turn raw, messy data into decisions. At Navy Federal Credit Union I build the dashboards, KPI reporting and root-cause analysis that help teams see what is happening and why — and outside of work I design and ship my own products, like TuneKadal.',
+    'I turn raw, messy data into decisions — the dashboards, KPI reporting and root-cause analysis that show teams what is happening and why.',
+  current: { org: 'Navy Federal Credit Union', period: 'Nov 2025 — Present' },
   location: 'Virginia, USA',
 };
 

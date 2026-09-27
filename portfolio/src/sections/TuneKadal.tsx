@@ -18,26 +18,30 @@ export function TuneKadal({ webgl }: { webgl: boolean }) {
     const el = section.current;
     if (!el) return;
     let raf = 0;
-    let visible = false;
     let seenAt = 0;
-    const io = new IntersectionObserver(
-      ([e]) => {
-        visible = e.isIntersecting;
-        if (visible && !seenAt) seenAt = performance.now();
-      },
-      { threshold: 0.3 },
-    );
-    io.observe(el);
+    // Phones reveal sooner: the beam is partly behind the panel there.
+    const maxWait = window.innerWidth < 700 ? 1400 : 2600;
     const tick = () => {
       const f = beamFacing();
       el.style.setProperty('--beam', f.toFixed(3));
-      if (visible) {
-        const waited = performance.now() - seenAt;
-        if (world.reducedMotion || f > 0.9 || waited > 4200) setRevealed(true);
-      }
+      if (world.reducedMotion || f > 0.9 || performance.now() - seenAt > maxWait) setRevealed(true);
       raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
+    // The beam loop only runs while the section is on screen.
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          if (!seenAt) seenAt = performance.now();
+          if (!raf) raf = requestAnimationFrame(tick);
+        } else if (raf) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+      },
+      // Viewport-based, so it fires however tall the section is on small screens.
+      { threshold: 0, rootMargin: '-30% 0px -30% 0px' },
+    );
+    io.observe(el);
     return () => {
       io.disconnect();
       cancelAnimationFrame(raf);

@@ -349,7 +349,6 @@ em {
   border-radius: 50%;
   background: var(--cyan);
   box-shadow: 0 0 10px var(--cyan);
-  animation: blink 2.4s ease-in-out infinite;
 }
 .calm-dot.is-calm {
   background: var(--ink-3);
@@ -531,7 +530,7 @@ main {
 .mono-label {
   display: inline-block;
   font-family: var(--f-mono);
-  font-size: 10.5px;
+  font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -711,9 +710,10 @@ main {
 }
 .hero-role {
   margin-top: 30px;
-  font-size: clamp(1.15rem, 2vw, 1.6rem);
-  font-weight: 450;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   animation: heroIn 1.4s var(--ease) 0.55s both;
 }
 .hero-disciplines {
@@ -734,8 +734,8 @@ main {
   color: var(--ink-3);
 }
 .hero-statement {
-  margin-top: 28px;
-  max-width: 540px;
+  margin-top: 22px;
+  max-width: 500px;
   font-size: clamp(1rem, 1.25vw, 1.1rem);
   color: var(--ink-2);
   text-wrap: pretty;
@@ -2826,5 +2826,100 @@ html.calm .pnode-blurb {
 @media (max-width: 640px) {
   .edu {
     padding-left: 0;
+  }
+}
+
+/* ─── Polish pass ───────────────────────────────────────────────────────────── */
+
+/* Hero: current role sits directly under the identity. */
+.hero-now {
+  margin-top: 22px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 8px 16px 8px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(98, 216, 255, 0.28);
+  background: rgba(8, 28, 56, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: heroIn 1.4s var(--ease) 0.72s both;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
+}
+.hero-now:hover {
+  border-color: rgba(98, 216, 255, 0.6);
+  background: rgba(98, 216, 255, 0.1);
+}
+.hero-now-org {
+  font-weight: 540;
+  font-size: 0.98rem;
+}
+.hero-now-period {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+
+/* Credentials: supporting evidence, sized below the career content. */
+.certs .section-title {
+  font-size: clamp(2rem, 4.2vw, 3.3rem);
+}
+.certs-num {
+  font-size: clamp(2rem, 3.6vw, 2.6rem);
+}
+.cred-grid {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+}
+.cred {
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+  padding: 14px 14px 15px;
+  border-radius: 14px;
+}
+.cred-seal {
+  width: 40px;
+  height: 40px;
+  font-size: 10.5px;
+}
+.cred-name {
+  font-size: 0.93rem;
+}
+.cred-issuer {
+  font-size: 0.84rem;
+}
+.cred-area {
+  font-size: 10.5px;
+}
+
+/* Project nodes a little more compact so the flagship leads. */
+.pnode {
+  min-height: 196px;
+}
+
+@media (max-width: 900px) {
+  /* Contact: no giant gap between heading and links on tablets/phones. */
+  .contact {
+    min-height: auto;
+  }
+  .contact-inner {
+    align-items: start;
+    gap: 36px;
+  }
+  /* TuneKadal on phones: let the lighthouse be seen first, then the panel. */
+  .tk {
+    align-items: flex-start;
+  }
+  .tk-grid {
+    padding-top: 34vh;
+  }
+}
+@media (max-width: 640px) {
+  .hero-now {
+    border-radius: 16px;
   }
 }

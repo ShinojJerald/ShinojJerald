@@ -45,7 +45,7 @@ export default function App() {
 
   return (
     <>
-      <a className="skip" href="#about">
+      <a className="skip" href="#main">
         Skip to content
       </a>
       <div className={`stage ${sceneReady ? 'is-ready' : ''}`} aria-hidden="true">
@@ -62,7 +62,7 @@ export default function App() {
       <Nav calm={calm} onToggleCalm={() => setCalm((c) => !c)} />
       <Hud />
 
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <Hero />
         <About />
         <ExperienceSection />

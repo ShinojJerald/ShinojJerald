@@ -224,7 +224,13 @@ export function Projects() {
                 className={`pnode k-${p.kind}`}
                 onClick={() => setOpenId(p.id)}
                 onPointerMove={tilt}
-                onPointerLeave={untilt}
+                onPointerEnter={() => (world.projectFocus = 1)}
+                onPointerLeave={(e) => {
+                  untilt(e);
+                  world.projectFocus = 0;
+                }}
+                onFocus={() => (world.projectFocus = 1)}
+                onBlur={() => (world.projectFocus = 0)}
                 aria-haspopup="dialog"
               >
                 <span className="pnode-top">

@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { world } from '../lib/world';
+import { proximity, world } from '../lib/world';
 import { palette, simplex3 } from './glsl';
 
 const coreVert = /* glsl */ `
@@ -132,6 +132,9 @@ export function DataCore({ position, detail }: Props) {
     const t = state.clock.elapsedTime * (world.reducedMotion ? 0.2 : 1);
     const g = group.current;
     if (!g) return;
+    const vis = proximity(state.camera.position.y, position[1], 6, 11) > 0;
+    g.visible = vis;
+    if (!vis) return;
 
     // Cursor proximity → "hover" energy, computed without raycasting.
     projected.set(position[0], position[1], position[2]).project(state.camera);

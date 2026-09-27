@@ -29,7 +29,7 @@ export function CountUp({ value, suffix = '', className, duration = 1400 }: { va
         };
         raf = requestAnimationFrame(step);
       },
-      { threshold: 0.6 },
+      { threshold: 0, rootMargin: '0px 0px -15% 0px' },
     );
     io.observe(el);
     return () => {

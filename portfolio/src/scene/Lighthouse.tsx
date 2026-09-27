@@ -46,6 +46,8 @@ void main(){
  * itself exactly when the light passes over the viewer.
  */
 export function Lighthouse({ position }: { position: [number, number, number] }) {
+  const root = useRef<THREE.Group>(null);
+  const arrive = useRef(0);
   const beam = useRef<THREE.Group>(null);
   const glow = useRef<THREE.Mesh>(null);
   const rings = useRef<THREE.Group>(null);
@@ -104,15 +106,29 @@ export function Lighthouse({ position }: { position: [number, number, number] })
   const LAMP_Y = towerH + 0.35;
 
   useFrame((state, dt) => {
+    // Hidden while the visitor is still in Skills/Projects; it rises out of the
+    // haze and its lamp ignites as the camera arrives at TuneKadal, then fades
+    // again below Certifications. Avoids a second lighthouse next to the
+    // Projects flagship card.
+    const camY = state.camera.position.y;
+    const target = THREE.MathUtils.smoothstep(-camY, 20.2, 22.8) * (1 - THREE.MathUtils.smoothstep(-camY, 31, 33.5));
+    arrive.current = THREE.MathUtils.damp(arrive.current, target, 3, dt);
+    const A = arrive.current;
+    const g = root.current;
+    if (g) {
+      g.visible = A > 0.01;
+      g.position.y = position[1] - (1 - A) * 1.6;
+    }
+    if (A <= 0.01) return;
     lit.current = THREE.MathUtils.damp(lit.current, world.lighthouse, 4, dt);
     const L = lit.current;
     if (beam.current) {
       beam.current.rotation.y = beamAngle();
     }
-    beamMat.uniforms.uStrength.value = 0.5 + L * 0.4;
-    glowMat.uniforms.uStrength.value = 1.1 + L * 0.6 + Math.sin(state.clock.elapsedTime * 2) * 0.05;
+    beamMat.uniforms.uStrength.value = (0.5 + L * 0.4) * A * A;
+    glowMat.uniforms.uStrength.value = (1.1 + L * 0.6) * A;
     if (glow.current) glow.current.quaternion.copy(state.camera.quaternion);
-    if (lamp.current) lamp.current.intensity = 6 + L * 8;
+    if (lamp.current) lamp.current.intensity = (6 + L * 8) * A;
 
     // Radio waves: expanding rings from the lantern.
     const t = state.clock.elapsedTime * (world.reducedMotion ? 0.15 : 1);
@@ -120,14 +136,14 @@ export function Lighthouse({ position }: { position: [number, number, number] })
       const p = (t * 0.22 + i / 3) % 1;
       const s = 0.6 + p * 7;
       c.scale.set(s, s, s);
-      ringMats[i].opacity = (1 - p) * (0.22 + L * 0.3) * Math.min(1, p * 6);
+      ringMats[i].opacity = (1 - p) * (0.22 + L * 0.3) * Math.min(1, p * 6) * A;
     });
   });
 
   const stripe = ['#dbe7f1', '#1e5f8c'];
 
   return (
-    <group position={position}>
+    <group ref={root} position={position} visible={false}>
       {/* rock */}
       <mesh position={[0, -0.35, 0]} scale={[1.6, 0.6, 1.3]}>
         <dodecahedronGeometry args={[1.6, 0]} />

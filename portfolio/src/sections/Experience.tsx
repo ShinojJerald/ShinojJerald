@@ -19,13 +19,14 @@ export function ExperienceSection() {
     const el = stream.current;
     if (!el) return;
     let raf = 0;
+    const nodes = Array.from(el.querySelectorAll<HTMLElement>('[data-node]'));
     const update = () => {
       raf = 0;
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight;
       const p = Math.min(1, Math.max(0, (vh * 0.62 - r.top) / Math.max(1, r.height)));
       el.style.setProperty('--prog', world.reducedMotion ? '1' : p.toFixed(4));
-      el.querySelectorAll<HTMLElement>('[data-node]').forEach((n) => {
+      nodes.forEach((n) => {
         const nr = n.getBoundingClientRect();
         n.classList.toggle('is-passed', world.reducedMotion || nr.top < vh * 0.62);
       });
