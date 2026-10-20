@@ -67,6 +67,14 @@
 
 **[TuneKadal](https://tunekadal.com/)** — a Tamil radio app and website I designed and built. 244+ Tamil radio stations with station discovery, favourites, lock-screen / background playback, an AI station guide and multiple ocean-inspired visual themes. Built with React Native and Expo, available on Android and iOS · [tunekadal.com](https://tunekadal.com/) · [App Store](https://apps.apple.com/app/id6773931613)
 
+<p align="center">
+  <a href="https://github.com/ShinojJerald/Foldex">
+    <img src="./assets/readme/foldex.svg" alt="Foldex — edit the text in any PDF. A free, offline Windows app: PDF editor, converter for 244 file formats and file tools." width="100%" />
+  </a>
+</p>
+
+**[Foldex](https://github.com/ShinojJerald/Foldex)** — a free, open-source Windows app for everyday file work. A PDF editor that changes the text already on the page (not a text box on top), fills forms and signs; PDF tools for merge, split, compress, passwords and OCR; a converter for 244 file formats; and folder tools for duplicates, metadata and batch renaming. Everything runs offline — nothing is uploaded. Built with .NET and Avalonia on top of [Filee](https://github.com/KnifeLemon/Filee), backed by about 1,580 automated tests · [Download for Windows](https://github.com/ShinojJerald/Foldex/releases/latest)
+
 **[Interactive 3D portfolio](https://shinojjerald.github.io/ShinojJerald/)** — this repository. An "underwater data observatory" built with React, TypeScript and Three.js: custom GLSL shaders, scroll-driven camera, device-aware rendering, reduced-motion support and a full no-WebGL fallback. Source in [`/portfolio`](./portfolio).
 
 ## ◆ Project universe
