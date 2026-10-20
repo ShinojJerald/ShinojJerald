@@ -9,7 +9,7 @@ import { Network } from './Network';
 import { Current, LightRays, Seafloor } from './Environment';
 import { Lighthouse } from './Lighthouse';
 import { CredentialPanels } from './CredentialPanels';
-import { FoldexForge } from './Foldex';
+import { FoldexForge, FoldexTeaser } from './Foldex';
 import { certifications } from '../content';
 
 type Vec3 = [number, number, number];
@@ -142,6 +142,7 @@ function World({ tier }: { tier: Exclude<Tier, 'none'> }) {
       <Network position={[x(-4), -19.8, -9]} nodes={Math.round(cfg.network * 0.45)} radius={3.6} seed={21} focus="project" />
       {cfg.rays && <LightRays />}
       <Lighthouse position={[x(5.5), narrow < 1 ? -24.8 : -26.6, -9]} />
+      <FoldexTeaser position={[x(-6), narrow < 1 ? -21.8 : -22.3, -9]} />
       <FoldexForge position={narrow < 1 ? [x(-1.2), -29.2, -3.5] : [-4.8, -31, -2.2]} detail={tier} />
       <CredentialPanels position={[x(-4.5), -38.3, -6]} count={certifications.length} spread={narrow < 1 ? 0.6 : 1} />
       <Seafloor y={-49} cols={tier === 'low' ? 26 : 44} rows={tier === 'low' ? 14 : 22} />

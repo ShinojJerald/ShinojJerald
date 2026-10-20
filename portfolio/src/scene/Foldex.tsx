@@ -558,3 +558,109 @@ export function FoldexForge({ position, detail }: { position: Vec3; detail: Deta
     </group>
   );
 }
+
+/**
+ * A smaller, quieter Foldex page that rises beside TuneKadal's lighthouse at the
+ * end of Projects — a preview of both flagships — and sinks away before the
+ * TuneKadal section settles. The full forge takes over further down.
+ */
+export function FoldexTeaser({ position }: { position: Vec3 }) {
+  const root = useRef<THREE.Group>(null);
+  const body = useRef<THREE.Group>(null);
+  const tilesRef = useRef<THREE.Group>(null);
+  const ring = useRef<THREE.Mesh>(null);
+  const arrive = useRef(0);
+
+  const { pageMat, haloMat, ringMat, tiles, tileGeo } = useMemo(() => {
+    const cv = document.createElement('canvas');
+    cv.width = CANVAS_W;
+    cv.height = CANVAS_H;
+    drawPage(cv.getContext('2d')!, { stage: 3, typed: NEW_HEAD.length, caret: false, sig: 1 });
+    const tex = new THREE.CanvasTexture(cv);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 4;
+    const pageMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, fog: false, opacity: 0 });
+    const haloMat = new THREE.ShaderMaterial({
+      vertexShader: quadVert,
+      fragmentShader: haloFrag,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      uniforms: { uStrength: { value: 0 }, uTime: { value: 0 } },
+    });
+    const ringMat = new THREE.MeshBasicMaterial({ color: '#a855f7', transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+    const tiles = [0, 1, 2, 3, 4, 7].map((k, i) => ({
+      mat: new THREE.MeshBasicMaterial({ map: makeTileTexture(TILES[k].label, TILES[k].color), transparent: true, toneMapped: false, fog: false, depthWrite: false, opacity: 0 }),
+      phase: (i / 6) * Math.PI * 2,
+    }));
+    return { pageMat, haloMat, ringMat, tiles, tileGeo: new THREE.PlaneGeometry(0.42, 0.42) };
+  }, []);
+
+  useEffect(
+    () => () => {
+      pageMat.map?.dispose();
+      pageMat.dispose();
+      haloMat.dispose();
+      ringMat.dispose();
+      tiles.forEach((t) => {
+        t.mat.map?.dispose();
+        t.mat.dispose();
+      });
+      tileGeo.dispose();
+    },
+    [pageMat, haloMat, ringMat, tiles, tileGeo],
+  );
+
+  useFrame((state, dt) => {
+    const camY = -state.camera.position.y;
+    // Rises with the lighthouse at the end of Projects, gone before TuneKadal holds.
+    const target = THREE.MathUtils.smoothstep(camY, 20.2, 22.4) * (1 - THREE.MathUtils.smoothstep(camY, 22.6, 23.4));
+    arrive.current = THREE.MathUtils.damp(arrive.current, target, 3, dt);
+    const A = arrive.current;
+    const g = root.current;
+    if (g) {
+      g.visible = A > 0.01;
+      g.position.y = position[1] - (1 - A) * 1.6;
+    }
+    if (A <= 0.01) return;
+    const time = state.clock.elapsedTime * (world.reducedMotion ? 0.12 : 1);
+    pageMat.opacity = A;
+    haloMat.uniforms.uStrength.value = A * 0.7;
+    haloMat.uniforms.uTime.value = time;
+    ringMat.opacity = A * 0.3;
+    if (body.current) {
+      body.current.rotation.y = -0.35 + Math.sin(time * 0.3) * 0.06 + world.pointerX * 0.1;
+      body.current.position.y = Math.sin(time * 0.7) * 0.07;
+    }
+    if (ring.current) ring.current.rotation.set(1.2, time * 0.2, 0.2);
+    tilesRef.current?.children.forEach((m, i) => {
+      const t = tiles[i];
+      const a = t.phase + time * 0.18;
+      const z = Math.sin(a) * 0.95;
+      m.position.set(Math.cos(a) * 1.75, -Math.sin(a) * 0.85, z);
+      m.quaternion.copy(state.camera.quaternion);
+      t.mat.opacity = A * (0.4 + THREE.MathUtils.smoothstep(z, -0.95, 0.95) * 0.6);
+    });
+  });
+
+  return (
+    <group ref={root} position={position} visible={false} scale={1.5}>
+      <group ref={body}>
+        <mesh ref={ring} material={ringMat}>
+          <torusGeometry args={[1.5, 0.01, 8, 140]} />
+        </mesh>
+        <mesh material={haloMat} position={[0, 0, -0.03]}>
+          <planeGeometry args={[1.6 * 1.6, 1.6 * (1000 / 768) * 1.28]} />
+        </mesh>
+        <mesh material={pageMat}>
+          <planeGeometry args={[1.6, 1.6 * (1000 / 768)]} />
+        </mesh>
+        <group ref={tilesRef}>
+          {tiles.map((t, i) => (
+            <mesh key={i} geometry={tileGeo} material={t.mat} />
+          ))}
+        </group>
+      </group>
+    </group>
+  );
+}

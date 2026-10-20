@@ -6,7 +6,7 @@ import { world } from '../lib/world';
 const KIND_ORDER: ProjectKind[] = ['analytics', 'viz', 'ml', 'nlp', 'product'];
 
 /** Small line glyph per project type — gives each category its own silhouette. */
-function KindGlyph({ kind }: { kind: ProjectKind }) {
+function KindGlyph({ kind, id }: { kind: ProjectKind; id?: string }) {
   const common = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.4, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
   return (
     <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" className="kind-glyph">
@@ -47,7 +47,15 @@ function KindGlyph({ kind }: { kind: ProjectKind }) {
           <circle cx="25" cy="7" r="3" />
         </g>
       )}
-      {kind === 'product' && (
+      {kind === 'product' && id === 'foldex' && (
+        <g {...common}>
+          <path d="M8 4h11l6 6v18H8z" />
+          <path d="M19 4v6h6" />
+          <path d="M12 15h9M12 19h7" />
+          <path d="M3 12h4M3 22h4M26 16h4" opacity=".7" />
+        </g>
+      )}
+      {kind === 'product' && id !== 'foldex' && (
         <g {...common}>
           <path d="M13 27l1.5-15h3L19 27z" />
           <path d="M12 12h8M14 12V9h4v3M16 9V7" />
@@ -97,7 +105,7 @@ function ProjectDialog({ project, onClose }: { project: Project | null; onClose:
             <span aria-hidden="true" />
           </button>
           <div className="pdialog-kind">
-            <KindGlyph kind={project.kind} />
+            <KindGlyph kind={project.kind} id={project.id} />
             <span className="mono-label">{projectKinds[project.kind].label}</span>
           </div>
           <h3 id="pdialog-title" className="pdialog-title">
@@ -133,7 +141,8 @@ function ProjectDialog({ project, onClose }: { project: Project | null; onClose:
 export function Projects() {
   const flagship = projects.find((p) => p.id === 'tunekadal')!;
   const foldexP = projects.find((p) => p.id === 'foldex')!;
-  const universe = projects.filter((p) => p.id !== 'tunekadal' && p.id !== 'foldex');
+  // The flagships lead above, and also sit in the grid so the Product filter is complete.
+  const universe = [...projects.filter((p) => p.kind !== 'product'), ...projects.filter((p) => p.kind === 'product')];
   const [filter, setFilter] = useState<ProjectKind | 'all'>('all');
   const [openId, setOpenId] = useState<string | null>(null);
   const counts = useMemo(() => {
@@ -293,7 +302,7 @@ export function Projects() {
                 aria-haspopup="dialog"
               >
                 <span className="pnode-top">
-                  <KindGlyph kind={p.kind} />
+                  <KindGlyph kind={p.kind} id={p.id} />
                   <span className="pnode-kind">{projectKinds[p.kind].short}</span>
                   {p.links.some((l) => l.href.includes('github.com')) && <span className="pnode-repo">Repo</span>}
                 </span>
