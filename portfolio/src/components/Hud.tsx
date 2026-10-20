@@ -59,7 +59,7 @@ export function Hud() {
         </div>
       </dl>
       <span className="hud-sec" ref={sec}>
-        01 / 08 HOME
+        01 / 10 HOME
       </span>
       </div>
     </aside>

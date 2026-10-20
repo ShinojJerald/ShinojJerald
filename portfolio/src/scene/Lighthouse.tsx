@@ -108,10 +108,10 @@ export function Lighthouse({ position }: { position: [number, number, number] })
   useFrame((state, dt) => {
     // Hidden while the visitor is still in Skills/Projects; it rises out of the
     // haze and its lamp ignites as the camera arrives at TuneKadal, then fades
-    // again below Certifications. Avoids a second lighthouse next to the
+    // again as the camera moves on to Foldex. Avoids a second lighthouse next to the
     // Projects flagship card.
     const camY = state.camera.position.y;
-    const target = THREE.MathUtils.smoothstep(-camY, 20.2, 22.8) * (1 - THREE.MathUtils.smoothstep(-camY, 31, 33.5));
+    const target = THREE.MathUtils.smoothstep(-camY, 20.2, 22.8) * (1 - THREE.MathUtils.smoothstep(-camY, 26.8, 29.2));
     arrive.current = THREE.MathUtils.damp(arrive.current, target, 3, dt);
     const A = arrive.current;
     const g = root.current;

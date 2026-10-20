@@ -10,6 +10,7 @@
  *   • Public GitHub repositories of github.com/ShinojJerald (repo links + their own
  *     descriptions, quoted or lightly shortened)
  *   • tunekadal.com (TuneKadal features and store link)
+ *   • github.com/ShinojJerald/Foldex README (Foldex features, formats, test count)
  *
  *  Rules:
  *   • No invented metrics, dates, employers, certifications, URLs or repositories.
@@ -34,6 +35,8 @@ export const links = {
   portfolio: 'https://shinojjerald.github.io/ShinojJerald/',
   tunekadal: 'https://tunekadal.com/',
   tunekadalAppStore: 'https://apps.apple.com/app/id6773931613',
+  foldex: 'https://github.com/ShinojJerald/Foldex',
+  foldexDownload: 'https://github.com/ShinojJerald/Foldex/releases/latest',
   // Fill these in to have them appear in the hero and Contact section automatically.
   linkedin: 'https://www.linkedin.com/in/shinoj-kumar-2a1670176',
   email: '',
@@ -287,6 +290,20 @@ export const projects: Project[] = [
     anchor: '#tunekadal',
   },
   {
+    id: 'foldex',
+    kind: 'product',
+    title: 'Foldex',
+    blurb: 'Edit the text in any PDF and convert 244 file formats — a free, offline Windows app.',
+    detail:
+      'A free, open-source Windows workspace: a PDF editor that changes the text already on the page, fills forms and signs; PDF tools for merge, split, compress, passwords and OCR; a converter for 244 formats; and folder tools. Everything runs offline.',
+    tags: ['.NET', 'Avalonia', 'C#', 'Windows', 'Open source'],
+    links: [
+      { label: 'GitHub', href: 'https://github.com/ShinojJerald/Foldex' },
+      { label: 'Download', href: 'https://github.com/ShinojJerald/Foldex/releases/latest' },
+    ],
+    anchor: '#foldex',
+  },
+  {
     id: 'covid-sentiment',
     kind: 'nlp',
     title: 'Sentiment Analysis on COVID-19 using Twitter Tweets',
@@ -436,4 +453,42 @@ export const tunekadal = {
   // Drop real screenshots into portfolio/public/tunekadal/ and list the file
   // names here (e.g. ['home.png', 'player.png']) — they will be shown in a gallery.
   screenshots: [] as string[],
+};
+
+/* ── FOLDEX (verified against github.com/ShinojJerald/Foldex README) ─────────── */
+export const foldex = {
+  name: 'Foldex',
+  tagline: 'Every file, one place',
+  /** The line that "edits itself" in the section: before → after. */
+  editFrom: 'Every file, scattered across four apps.',
+  editTo: 'Every file, one place.',
+  intro:
+    'A free Windows workspace for the file jobs that usually need three or four apps — an Adobe-style PDF editor, a converter for hundreds of formats and tools to tidy folders. All on your own PC, nothing uploaded.',
+  stats: [
+    { value: 244, suffix: '', label: 'File formats' },
+    { value: 1500, suffix: '+', label: 'Automated tests' },
+    { value: 4, suffix: '', label: 'Interface languages' },
+  ],
+  stack: ['.NET 10', 'Avalonia', 'C#', 'PDFium', 'Windows 10 / 11', 'MIT'],
+  /** Every format here appears in Foldex's engine documentation. */
+  formats: [
+    ['PDF', 'DOCX', 'XLSX', 'PPTX', 'ODT', 'EPUB', 'HEIC', 'AVIF', 'WEBP', 'SVG', 'TIFF', 'PNG', 'JPG'],
+    ['MP4', 'MKV', 'MP3', 'FLAC', 'ZIP', 'TTF', 'DWG', 'STL', 'OBJ', 'HWP', 'ICO', 'BMP', 'RAW'],
+  ],
+  capabilities: [
+    { icon: 'edit', title: 'Edit existing text', body: 'Retype a line on the page — the old text is removed, not covered.' },
+    { icon: 'sign', title: 'Sign', body: 'Typed, drawn or uploaded signatures, plus certificate signing (PKCS#7).' },
+    { icon: 'form', title: 'Fill forms & annotate', body: 'Form fields, highlights, notes, shapes and pictures.' },
+    { icon: 'pages', title: 'Organise pages', body: 'Reorder, rotate, insert, extract — with undo and redo.' },
+    { icon: 'merge', title: 'Merge · split · compress', body: 'With before-and-after sizes.' },
+    { icon: 'lock', title: 'Passwords & OCR', body: 'AES-256 protection; searchable scans via Windows OCR.' },
+    { icon: 'convert', title: 'Convert anything', body: 'Images, documents, audio, video, e-books, archives, fonts, CAD.' },
+    { icon: 'folder', title: 'Tidy folders', body: 'Duplicates, wrong extensions, photo metadata, batch rename.' },
+  ],
+  shots: [
+    { file: 'pdf-editor.webp', alt: 'Foldex PDF editor with an edited heading and a signature', w: 1282, h: 821 },
+    { file: 'signature-studio.webp', alt: 'Signature Studio with five typed signature styles', w: 862, h: 732 },
+    { file: 'quick-panel.webp', alt: 'Quick panel with conversion targets for an image', w: 438, h: 592 },
+  ],
+  credit: { label: 'Filee', href: 'https://github.com/KnifeLemon/Filee', author: 'KnifeLemon' },
 };

@@ -132,7 +132,8 @@ function ProjectDialog({ project, onClose }: { project: Project | null; onClose:
 
 export function Projects() {
   const flagship = projects.find((p) => p.id === 'tunekadal')!;
-  const universe = projects.filter((p) => p.id !== 'tunekadal');
+  const foldexP = projects.find((p) => p.id === 'foldex')!;
+  const universe = projects.filter((p) => p.id !== 'tunekadal' && p.id !== 'foldex');
   const [filter, setFilter] = useState<ProjectKind | 'all'>('all');
   const [openId, setOpenId] = useState<string | null>(null);
   const counts = useMemo(() => {
@@ -154,7 +155,7 @@ export function Projects() {
               Things I have <em>built.</em>
             </span>
           }
-          lede="A shipped product, analytics and machine-learning work, and the code for this site. Hover to preview a project, then open it for the details."
+          lede="Two shipped products, analytics and machine-learning work, and the code for this site. Hover to preview a project, then open it for the details."
         />
 
         {/* Flagship */}
@@ -196,6 +197,64 @@ export function Projects() {
                 </a>
                 <a className="card-link" href={flagship.links[0].href} target="_blank" rel="noreferrer">
                   tunekadal.com <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        </Reveal>
+
+        <Reveal className="cards-featured">
+          <article className="card card-featured card-featured-rev card-fx" onPointerMove={tilt} onPointerLeave={untilt}>
+            <div className="card-art card-art-fx" aria-hidden="true">
+              <svg viewBox="0 0 320 200" className="card-forge">
+                <defs>
+                  <linearGradient id="fxCardG" x1="0" x2="1">
+                    <stop offset="0" stopColor="#22d3ee" />
+                    <stop offset="1" stopColor="#a855f7" />
+                  </linearGradient>
+                </defs>
+                <ellipse className="card-forge-ring" cx="160" cy="104" rx="140" ry="40" fill="none" stroke="url(#fxCardG)" strokeOpacity=".55" />
+                <g className="card-forge-page">
+                  <rect x="118" y="34" width="84" height="110" rx="7" fill="#f7f8fd" />
+                  <rect x="118" y="34" width="84" height="4" rx="2" fill="url(#fxCardG)" />
+                  <rect className="card-forge-sel" x="125" y="45" width="66" height="13" rx="3" fill="#22d3ee" fillOpacity=".18" stroke="#22d3ee" />
+                  <rect x="128" y="49" width="52" height="6" rx="3" fill="#1e3a8a" />
+                  {[66, 74, 82, 96, 104].map((y, i) => (
+                    <rect key={y} x="128" y={y} width={[62, 54, 58, 40, 60][i]} height="4" rx="2" fill="#cfd5e6" />
+                  ))}
+                  <path className="card-forge-sig" d="M128 132c4-12 8-12 8-1s7-8 11-4 4 6 8 0 7 4 15-1" fill="none" stroke="#1d3fbf" strokeWidth="1.8" strokeLinecap="round" />
+                </g>
+                {['PDF', 'DOCX', 'MP4', 'HEIC', 'XLSX', 'SVG'].map((f, i) => {
+                  // Angles keep the chips clear of the page in the middle.
+                  const a = [0.25, 0.9, 2.25, 2.9, 3.6, 5.8][i];
+                  const x = 160 + Math.cos(a) * 138 - 19;
+                  const y = 104 + Math.sin(a) * 40 - 10;
+                  return (
+                    <g key={f} className="card-forge-chip" style={{ animationDelay: `${-i * 0.7}s` }}>
+                      <rect x={x} y={y} width="38" height="20" rx="6" fill="#141b44" stroke="url(#fxCardG)" strokeOpacity=".8" />
+                      <text x={x + 19} y={y + 13.5} fontSize="8.5" fontWeight="700" fill="#ece8ff" textAnchor="middle">
+                        {f}
+                      </text>
+                    </g>
+                  );
+                })}
+              </svg>
+            </div>
+            <div className="card-body">
+              <span className="mono-label">Flagship product · open source</span>
+              <h3 className="card-title">{foldexP.title}</h3>
+              <p className="card-text">{foldexP.blurb}</p>
+              <ul className="chips" aria-label="Technology">
+                {foldexP.tags.map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ul>
+              <div className="card-actions">
+                <a className="card-link" href="#foldex">
+                  Enter the forge <span aria-hidden="true">→</span>
+                </a>
+                <a className="card-link" href={foldexP.links[1].href} target="_blank" rel="noreferrer">
+                  Download <span aria-hidden="true">↗</span>
                 </a>
               </div>
             </div>

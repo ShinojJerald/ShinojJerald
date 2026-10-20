@@ -7,6 +7,7 @@ export function Contact() {
     links.linkedin && { label: 'LinkedIn', value: links.linkedin.replace(/^https?:\/\/(www\.)?/, ''), href: links.linkedin },
     links.email && { label: 'Email', value: links.email, href: `mailto:${links.email}` },
     { label: 'TuneKadal', value: 'tunekadal.com', href: links.tunekadal },
+    { label: 'Foldex', value: 'github.com/ShinojJerald/Foldex', href: links.foldex },
     { label: 'Source', value: 'This portfolio on GitHub', href: links.profileRepo },
   ].filter(Boolean) as { label: string; value: string; href: string }[];
 
@@ -15,7 +16,7 @@ export function Contact() {
       <div className="container contact-inner">
         <Reveal>
           <p className="eyebrow">
-            <span className="eyebrow-index">08</span>
+            <span className="eyebrow-index">09</span>
             <span className="eyebrow-rule" aria-hidden="true" />
             Contact
           </p>

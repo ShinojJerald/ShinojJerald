@@ -10,6 +10,7 @@ export const SECTION_IDS = [
   'skills',
   'projects',
   'tunekadal',
+  'foldex',
   'certifications',
   'github',
   'contact',
@@ -36,6 +37,10 @@ export const world = {
   credFocus: -1,
   /** 1 while a project node is hovered */
   projectFocus: 0,
+  /** 0 → 1: Foldex "run the converter" boost (hover / press) */
+  forge: 0,
+  /** Seconds (performance clock) when the Foldex edit cycle last (re)started */
+  forgeKick: 0,
   reducedMotion: false,
 };
 
@@ -65,6 +70,21 @@ export function beamFacing(nowSec = performance.now() / 1000): number {
   // The lantern throws two opposed beams, so either end can face the viewer.
   const d = Math.cos(a) * TO_VIEWER.x - Math.sin(a) * TO_VIEWER.z;
   return Math.abs(d);
+}
+
+/* ── Foldex: one clock shared by the 3D document and the DOM copy ──────────── */
+export const FORGE_PERIOD = 10; // seconds per edit cycle
+/** Moments in the cycle (seconds). */
+export const FORGE = { select: 1.6, type: 2.4, typed: 3.9, signed: 6.2, reset: 9.4 } as const;
+/** Seconds into the current Foldex edit cycle. */
+export function forgeTime(nowSec = performance.now() / 1000): number {
+  if (world.reducedMotion) return FORGE.signed + 1; // parked on the finished page
+  const t = nowSec - world.forgeKick;
+  return ((t % FORGE_PERIOD) + FORGE_PERIOD) % FORGE_PERIOD;
+}
+/** Restart the edit cycle from the beginning (section arrival, "Run" button). */
+export function kickForge(): void {
+  world.forgeKick = performance.now() / 1000;
 }
 
 // Exposed read-only for debugging in the browser console.

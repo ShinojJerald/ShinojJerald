@@ -51,6 +51,9 @@ export function Hero() {
             <a href={links.tunekadal} target="_blank" rel="noreferrer">TuneKadal</a>
           </li>
           <li>
+            <a href="#foldex">Foldex</a>
+          </li>
+          <li>
             <a href="#certifications">Credentials</a>
           </li>
         </ul>
