@@ -10,6 +10,7 @@ const LABELS: Record<SectionId, string> = {
   projects: 'Projects',
   tunekadal: 'TuneKadal',
   foldex: 'Foldex',
+  adzap: 'AdZap',
   certifications: 'Credentials',
   github: 'GitHub',
   contact: 'Contact',

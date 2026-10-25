@@ -6,7 +6,8 @@ import { world } from '../lib/world';
  * Only ever used for factual values (station count, certification count…).
  * Screen readers get the final value immediately.
  */
-export function CountUp({ value, suffix = '', className, duration = 1400 }: { value: number; suffix?: string; className?: string; duration?: number }) {
+export function CountUp({ value, suffix = '', className, duration = 1400, group = false }: { value: number; suffix?: string; className?: string; duration?: number; group?: boolean }) {
+  const fmt = (v: number) => (group ? v.toLocaleString('en-US') : v);
   const ref = useRef<HTMLSpanElement>(null);
   const [n, setN] = useState(value);
   const started = useRef(false);
@@ -41,11 +42,11 @@ export function CountUp({ value, suffix = '', className, duration = 1400 }: { va
   return (
     <span className={className}>
       <span ref={ref} aria-hidden="true">
-        {n}
+        {fmt(n)}
         {suffix}
       </span>
       <span className="sr-only">
-        {value}
+        {fmt(value)}
         {suffix}
       </span>
     </span>

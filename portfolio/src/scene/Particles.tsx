@@ -5,7 +5,7 @@ import { world } from '../lib/world';
 import { palette } from './glsl';
 
 const Y_TOP = 9;
-const Y_BOTTOM = -53;
+const Y_BOTTOM = -60;
 
 const vert = /* glsl */ `
 uniform float uTime;

@@ -55,7 +55,14 @@ function KindGlyph({ kind, id }: { kind: ProjectKind; id?: string }) {
           <path d="M3 12h4M3 22h4M26 16h4" opacity=".7" />
         </g>
       )}
-      {kind === 'product' && id !== 'foldex' && (
+      {kind === 'product' && id === 'adzap' && (
+        <g {...common}>
+          <rect x="4" y="6" width="24" height="20" rx="3" />
+          <path d="M4 11h24" />
+          <path d="M17 13l-5 7h4l-1 5 5-7h-4z" />
+        </g>
+      )}
+      {kind === 'product' && id !== 'foldex' && id !== 'adzap' && (
         <g {...common}>
           <path d="M13 27l1.5-15h3L19 27z" />
           <path d="M12 12h8M14 12V9h4v3M16 9V7" />
@@ -141,6 +148,7 @@ function ProjectDialog({ project, onClose }: { project: Project | null; onClose:
 export function Projects() {
   const flagship = projects.find((p) => p.id === 'tunekadal')!;
   const foldexP = projects.find((p) => p.id === 'foldex')!;
+  const adzapP = projects.find((p) => p.id === 'adzap')!;
   // The flagships lead above, and also sit in the grid so the Product filter is complete.
   const universe = [...projects.filter((p) => p.kind !== 'product'), ...projects.filter((p) => p.kind === 'product')];
   const [filter, setFilter] = useState<ProjectKind | 'all'>('all');
@@ -164,7 +172,7 @@ export function Projects() {
               Things I have <em>built.</em>
             </span>
           }
-          lede="Two shipped products, analytics and machine-learning work, and the code for this site. Hover to preview a project, then open it for the details."
+          lede="Three shipped products, analytics and machine-learning work, and the code for this site. Hover to preview a project, then open it for the details."
         />
 
         {/* Flagship */}
@@ -264,6 +272,56 @@ export function Projects() {
                 </a>
                 <a className="card-link" href={foldexP.links[1].href} target="_blank" rel="noreferrer">
                   Download <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        </Reveal>
+
+        <Reveal className="cards-featured">
+          <article className="card card-featured card-az" onPointerMove={tilt} onPointerLeave={untilt}>
+            <div className="card-art card-art-az" aria-hidden="true">
+              <svg viewBox="0 0 320 200" className="card-zap">
+                <defs>
+                  <linearGradient id="azCardG" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#7c5cff" />
+                    <stop offset="1" stopColor="#a35cff" />
+                  </linearGradient>
+                </defs>
+                <g transform="translate(70 34)">
+                  <rect width="180" height="132" rx="10" fill="#120d28" stroke="#3a3168" />
+                  <rect width="180" height="22" rx="10" fill="#1d1640" />
+                  <rect x="40" y="6" width="110" height="10" rx="5" fill="#0d0a20" />
+                  <rect className="card-zap-chip" x="112" y="6" width="38" height="10" rx="5" fill="#34d399" />
+                  {[36, 48, 60, 80, 92, 104].map((y, i) => (
+                    <rect key={y} x="12" y={y} width={[86, 76, 82, 86, 70, 80][i]} height="5" rx="2.5" fill="#2a2350" />
+                  ))}
+                  <g className="card-zap-ads">
+                    <rect x="110" y="32" width="58" height="40" rx="6" fill="#241c48" stroke="#f87171" strokeDasharray="4 3" />
+                    <rect x="110" y="80" width="58" height="40" rx="6" fill="#241c48" stroke="#f87171" strokeDasharray="4 3" />
+                  </g>
+                </g>
+                <path className="card-zap-arc" d="M58 70 l14 18 -8 4 20 22 -6 4 22 18" fill="none" stroke="#e9e2ff" strokeWidth="2" strokeLinejoin="round" />
+                <g transform="translate(26 30) scale(1.9)">
+                  <path d="M13 2 4.5 13.5h5.2L8.6 22l9.9-12.2h-5.6L13 2z" fill="url(#azCardG)" />
+                </g>
+              </svg>
+            </div>
+            <div className="card-body">
+              <span className="mono-label">Flagship product · Chrome extension</span>
+              <h3 className="card-title">{adzapP.title}</h3>
+              <p className="card-text">{adzapP.blurb}</p>
+              <ul className="chips" aria-label="Technology">
+                {adzapP.tags.map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ul>
+              <div className="card-actions">
+                <a className="card-link" href="#adzap">
+                  Enter the zap field <span aria-hidden="true">→</span>
+                </a>
+                <a className="card-link" href={adzapP.links[0].href} target="_blank" rel="noreferrer">
+                  Product page <span aria-hidden="true">↗</span>
                 </a>
               </div>
             </div>

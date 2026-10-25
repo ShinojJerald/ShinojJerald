@@ -47,7 +47,7 @@ export function Certifications() {
     <section id="certifications" className="section certs" aria-labelledby="certs-title">
       <div className="container">
         <SectionHead
-          index="07"
+          index="08"
           kicker="Credentials"
           title={
             <span id="certs-title">

@@ -11,6 +11,8 @@
  *     descriptions, quoted or lightly shortened)
  *   • tunekadal.com (TuneKadal features and store link)
  *   • github.com/ShinojJerald/Foldex README (Foldex features, formats, test count)
+ *   • AdZap v1.1.0 package and github.com/ShinojJerald/AdZap (rule counts, behaviour,
+ *     privacy — checked against the extension's code)
  *
  *  Rules:
  *   • No invented metrics, dates, employers, certifications, URLs or repositories.
@@ -37,6 +39,9 @@ export const links = {
   tunekadalAppStore: 'https://apps.apple.com/app/id6773931613',
   foldex: 'https://github.com/ShinojJerald/Foldex',
   foldexDownload: 'https://github.com/ShinojJerald/Foldex/releases/latest',
+  adzap: 'https://tunekadal.com/software/adzap/',
+  adzapRepo: 'https://github.com/ShinojJerald/AdZap',
+  adzapDownload: 'https://github.com/ShinojJerald/AdZap/releases/download/v1.1.0/adzap-1.1.0.zip',
   // Fill these in to have them appear in the hero and Contact section automatically.
   linkedin: 'https://www.linkedin.com/in/shinoj-kumar-2a1670176',
   email: '',
@@ -304,6 +309,21 @@ export const projects: Project[] = [
     anchor: '#foldex',
   },
   {
+    id: 'adzap',
+    kind: 'product',
+    title: 'AdZap',
+    blurb: 'A Chrome extension that blocks ads and trackers only on the sites you choose.',
+    detail:
+      'A per-site ad blocker for Chrome. Nothing is filtered until you zap a site; then 113,670 rules compiled from EasyList and EasyPrivacy apply there through Chrome’s built-in blocking engine, and leftover ad spaces are hidden. Unzap a site to put it back. The extension makes no network requests of its own.',
+    tags: ['Chrome extension', 'Manifest V3', 'JavaScript', 'EasyList'],
+    links: [
+      { label: 'Product page', href: 'https://tunekadal.com/software/adzap/' },
+      { label: 'Download', href: 'https://github.com/ShinojJerald/AdZap/releases/download/v1.1.0/adzap-1.1.0.zip' },
+      { label: 'GitHub', href: 'https://github.com/ShinojJerald/AdZap' },
+    ],
+    anchor: '#adzap',
+  },
+  {
     id: 'covid-sentiment',
     kind: 'nlp',
     title: 'Sentiment Analysis on COVID-19 using Twitter Tweets',
@@ -491,4 +511,28 @@ export const foldex = {
     { file: 'quick-panel.webp', alt: 'Quick panel with conversion targets for an image', w: 438, h: 592 },
   ],
   credit: { label: 'Filee', href: 'https://github.com/KnifeLemon/Filee', author: 'KnifeLemon' },
+};
+
+/* ── ADZAP (verified against the v1.1.0 package and its code) ──────────────── */
+export const adzap = {
+  name: 'AdZap',
+  intro:
+    'A Chrome extension that blocks ads and trackers only on the websites you pick. Every site you haven’t zapped stays exactly as it was.',
+  /** Example sites for the demo (the reserved .example domain, not real sites). */
+  sites: ['news.example', 'video.example', 'recipes.example', 'shop.example', 'forum.example', 'blog.example'],
+  stats: [
+    { value: 113670, suffix: '', label: 'Blocking rules' },
+    { value: 3, suffix: '', label: 'Rule lists' },
+    { value: 0, suffix: '', label: 'Sites filtered until you zap one' },
+  ],
+  stack: ['Chrome 116+', 'Manifest V3', 'declarativeNetRequest', 'JavaScript', 'EasyList · EasyPrivacy'],
+  features: [
+    { icon: 'ads', title: 'Ads', body: '57,323 rules compiled from EasyList.' },
+    { icon: 'track', title: 'Trackers', body: '56,296 rules compiled from EasyPrivacy.' },
+    { icon: 'bell', title: 'Annoyances', body: '51 rules for share buttons, chat widgets and pop-up scripts.' },
+    { icon: 'hide', title: 'Leftover ad spaces', body: 'Empty ad slots and banners are hidden on zapped pages.' },
+    { icon: 'undo', title: 'Undo any time', body: 'Unzap a site, or press Alt+Z, and it goes back to normal.' },
+    { icon: 'local', title: 'No AdZap server', body: 'Its own code makes no network requests; your list stays in Chrome.' },
+  ],
+  credit: { label: 'the EasyList authors', href: 'https://easylist.to/' },
 };

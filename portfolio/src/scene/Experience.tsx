@@ -10,6 +10,7 @@ import { Current, LightRays, Seafloor } from './Environment';
 import { Lighthouse } from './Lighthouse';
 import { CredentialPanels } from './CredentialPanels';
 import { FoldexForge, FoldexTeaser } from './Foldex';
+import { AdZapField } from './AdZap';
 import { certifications } from '../content';
 
 type Vec3 = [number, number, number];
@@ -28,9 +29,10 @@ const KEYS: Key[] = [
   { pos: [0, -19, 9], look: [0, -19.6, 0], bg: '#030b1a', fog: 0.055 }, //           projects
   { pos: [-1, -23.6, 8], look: [0, -23.3, -6], bg: '#021622', fog: 0.03 }, //        tunekadal — deeper, greener, clearer water
   { pos: [1.6, -30.6, 8.6], look: [-1.2, -31, -4], bg: '#070a22', fog: 0.03 }, //  foldex — violet-tinted, clear water around the forge
-  { pos: [1, -37.6, 8], look: [-4, -38.2, -4], bg: '#030d1c', fog: 0.062 }, //          certifications — credential panels
-  { pos: [0, -40.4, 9], look: [0, -45, -3], bg: '#020d17', fog: 0.05 }, //           github
-  { pos: [-1, -44, 9], look: [-2.5, -42.2, -8], bg: '#030b16', fog: 0.05 }, //       contact
+  { pos: [-1.4, -37.6, 8.6], look: [1.4, -38, -4], bg: '#0b0820', fog: 0.03 }, //   adzap — deep violet, the zap field to the right
+  { pos: [1, -44.6, 8], look: [-4, -45.2, -4], bg: '#030d1c', fog: 0.062 }, //          certifications — credential panels
+  { pos: [0, -47.4, 9], look: [0, -52, -3], bg: '#020d17', fog: 0.05 }, //           github
+  { pos: [-1, -51, 9], look: [-2.5, -49.2, -8], bg: '#030b16', fog: 0.05 }, //       contact
 ];
 
 const ease = (x: number) => x * x * (3 - 2 * x);
@@ -144,8 +146,9 @@ function World({ tier }: { tier: Exclude<Tier, 'none'> }) {
       <Lighthouse position={[x(5.5), narrow < 1 ? -24.8 : -26.6, -9]} />
       <FoldexTeaser position={[x(-6), narrow < 1 ? -21.8 : -22.3, -9]} />
       <FoldexForge position={narrow < 1 ? [x(-1.2), -29.2, -3.5] : [-4.8, -31, -2.2]} detail={tier} />
-      <CredentialPanels position={[x(-4.5), -38.3, -6]} count={certifications.length} spread={narrow < 1 ? 0.6 : 1} />
-      <Seafloor y={-49} cols={tier === 'low' ? 26 : 44} rows={tier === 'low' ? 14 : 22} />
+      <AdZapField position={narrow < 1 ? [x(1.4), -36.2, -3.5] : [5.3, -38, -2.4]} detail={tier} />
+      <CredentialPanels position={[x(-4.5), -45.3, -6]} count={certifications.length} spread={narrow < 1 ? 0.6 : 1} />
+      <Seafloor y={-56} cols={tier === 'low' ? 26 : 44} rows={tier === 'low' ? 14 : 22} />
     </>
   );
 }

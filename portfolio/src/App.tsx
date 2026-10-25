@@ -11,6 +11,7 @@ import { Skills } from './sections/Skills';
 import { Projects } from './sections/Projects';
 import { TuneKadal } from './sections/TuneKadal';
 import { Foldex } from './sections/Foldex';
+import { AdZap } from './sections/AdZap';
 import { Certifications } from './sections/Certifications';
 import { GitHub } from './sections/GitHub';
 import { Contact } from './sections/Contact';
@@ -71,6 +72,7 @@ export default function App() {
         <Projects />
         <TuneKadal webgl={webgl} />
         <Foldex webgl={webgl} />
+        <AdZap webgl={webgl} />
         <Certifications />
         <GitHub />
         <Contact />

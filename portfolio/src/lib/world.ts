@@ -11,6 +11,7 @@ export const SECTION_IDS = [
   'projects',
   'tunekadal',
   'foldex',
+  'adzap',
   'certifications',
   'github',
   'contact',
@@ -41,6 +42,10 @@ export const world = {
   forge: 0,
   /** Seconds (performance clock) when the Foldex edit cycle last (re)started */
   forgeKick: 0,
+  /** AdZap demo: bit i set = site i is zapped (shared by the DOM switches and the 3D windows) */
+  zapMask: 0,
+  /** AdZap demo: index of the site switch under the pointer or focus (-1 = none) */
+  zapHover: -1,
   reducedMotion: false,
 };
 

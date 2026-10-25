@@ -54,6 +54,9 @@ export function Hero() {
             <a href="#foldex">Foldex</a>
           </li>
           <li>
+            <a href="#adzap">AdZap</a>
+          </li>
+          <li>
             <a href="#certifications">Credentials</a>
           </li>
         </ul>
