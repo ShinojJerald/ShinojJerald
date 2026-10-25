@@ -75,6 +75,14 @@
 
 **[Foldex](https://github.com/ShinojJerald/Foldex)** — a free, open-source Windows app for everyday file work. A PDF editor that changes the text already on the page (not a text box on top), fills forms and signs; PDF tools for merge, split, compress, passwords and OCR; a converter for 244 file formats; and folder tools for duplicates, metadata and batch renaming. Everything runs offline — nothing is uploaded. Built with .NET and Avalonia on top of [Filee](https://github.com/KnifeLemon/Filee), backed by about 1,580 automated tests · [Download for Windows](https://github.com/ShinojJerald/Foldex/releases/latest)
 
+<p align="center">
+  <a href="https://tunekadal.com/software/adzap/">
+    <img src="./assets/readme/adzap.svg" alt="AdZap — Choose the sites. Zap the ads. A Chrome extension that blocks ads and trackers only on the websites you pick." width="100%" />
+  </a>
+</p>
+
+**[AdZap](https://tunekadal.com/software/adzap/)** — a Chrome extension for per-site ad blocking. Ads and trackers are blocked only on the websites you zap, every other site is left alone, and unzapping a site (or pressing Alt+Z) turns it straight back off. 113,670 rules compiled from EasyList and EasyPrivacy, applied by Chrome's built-in blocking engine; the extension makes no network requests of its own · [Product page](https://tunekadal.com/software/adzap/) · [Download v1.1.0](https://github.com/ShinojJerald/AdZap/releases/latest)
+
 **[Interactive 3D portfolio](https://shinojjerald.github.io/ShinojJerald/)** — this repository. An "underwater data observatory" built with React, TypeScript and Three.js: custom GLSL shaders, scroll-driven camera, device-aware rendering, reduced-motion support and a full no-WebGL fallback. Source in [`/portfolio`](./portfolio).
 
 ## ◆ Project universe
