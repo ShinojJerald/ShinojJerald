@@ -11,7 +11,7 @@
  *     descriptions, quoted or lightly shortened)
  *   • tunekadal.com (TuneKadal features and store link)
  *   • github.com/ShinojJerald/Foldex README (Foldex features, formats, test count)
- *   • AdZap v1.1.0 package and github.com/ShinojJerald/AdZap (rule counts, behaviour,
+ *   • AdZap v1.2.0 package (blocking identical to v1.1.0) and github.com/ShinojJerald/AdZap (rule counts, behaviour,
  *     privacy — checked against the extension's code)
  *
  *  Rules:
@@ -41,7 +41,7 @@ export const links = {
   foldexDownload: 'https://github.com/ShinojJerald/Foldex/releases/latest',
   adzap: 'https://tunekadal.com/software/adzap/',
   adzapRepo: 'https://github.com/ShinojJerald/AdZap',
-  adzapDownload: 'https://github.com/ShinojJerald/AdZap/releases/download/v1.1.0/adzap-1.1.0.zip',
+  adzapDownload: 'https://github.com/ShinojJerald/AdZap/releases/download/v1.2.0/adzap-1.2.0.zip',
   // Fill these in to have them appear in the hero and Contact section automatically.
   linkedin: 'https://www.linkedin.com/in/shinoj-kumar-2a1670176',
   email: '',
@@ -318,7 +318,7 @@ export const projects: Project[] = [
     tags: ['Chrome extension', 'Manifest V3', 'JavaScript', 'EasyList'],
     links: [
       { label: 'Product page', href: 'https://tunekadal.com/software/adzap/' },
-      { label: 'Download', href: 'https://github.com/ShinojJerald/AdZap/releases/download/v1.1.0/adzap-1.1.0.zip' },
+      { label: 'Download', href: 'https://github.com/ShinojJerald/AdZap/releases/download/v1.2.0/adzap-1.2.0.zip' },
       { label: 'GitHub', href: 'https://github.com/ShinojJerald/AdZap' },
     ],
     anchor: '#adzap',
@@ -513,7 +513,7 @@ export const foldex = {
   credit: { label: 'Filee', href: 'https://github.com/KnifeLemon/Filee', author: 'KnifeLemon' },
 };
 
-/* ── ADZAP (verified against the v1.1.0 package and its code) ──────────────── */
+/* ── ADZAP (verified against the v1.2.0 package and its code) ──────────────── */
 export const adzap = {
   name: 'AdZap',
   intro:

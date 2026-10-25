@@ -81,7 +81,7 @@
   </a>
 </p>
 
-**[AdZap](https://tunekadal.com/software/adzap/)** — a Chrome extension for per-site ad blocking. Ads and trackers are blocked only on the websites you zap, every other site is left alone, and unzapping a site (or pressing Alt+Z) turns it straight back off. 113,670 rules compiled from EasyList and EasyPrivacy, applied by Chrome's built-in blocking engine; the extension makes no network requests of its own · [Product page](https://tunekadal.com/software/adzap/) · [Download v1.1.0](https://github.com/ShinojJerald/AdZap/releases/latest)
+**[AdZap](https://tunekadal.com/software/adzap/)** — a Chrome extension for per-site ad blocking. Ads and trackers are blocked only on the websites you zap, every other site is left alone, and unzapping a site (or pressing Alt+Z) turns it straight back off. 113,670 rules compiled from EasyList and EasyPrivacy, applied by Chrome's built-in blocking engine; the extension makes no network requests of its own · [Product page](https://tunekadal.com/software/adzap/) · [Download v1.2.0](https://github.com/ShinojJerald/AdZap/releases/latest)
 
 **[Interactive 3D portfolio](https://shinojjerald.github.io/ShinojJerald/)** — this repository. An "underwater data observatory" built with React, TypeScript and Three.js: custom GLSL shaders, scroll-driven camera, device-aware rendering, reduced-motion support and a full no-WebGL fallback. Source in [`/portfolio`](./portfolio).
 

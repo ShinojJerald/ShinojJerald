@@ -76,7 +76,7 @@ export function AdZap({ webgl }: { webgl: boolean }) {
             <span>
               Ad<span className="az-grad">Zap</span>
             </span>
-            <span className="az-badge">v1.1 · Chrome</span>
+            <span className="az-badge">v1.2 · Chrome</span>
           </h2>
 
           <p className="az-claim">
