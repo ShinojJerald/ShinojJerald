@@ -11,7 +11,7 @@
  *     descriptions, quoted or lightly shortened)
  *   • tunekadal.com (TuneKadal features and store link)
  *   • github.com/ShinojJerald/Foldex README (Foldex features, formats, test count)
- *   • AdZap v1.2.0 package (blocking identical to v1.1.0) and github.com/ShinojJerald/AdZap (rule counts, behaviour,
+ *   • AdZap v1.3.0 (Chrome Web Store, checked 2026-10-30; blocking identical to v1.1.0) and github.com/ShinojJerald/AdZap (rule counts, behaviour,
  *     privacy — checked against the extension's code)
  *
  *  Rules:
@@ -41,7 +41,7 @@ export const links = {
   foldexDownload: 'https://github.com/ShinojJerald/Foldex/releases/latest',
   adzap: 'https://tunekadal.com/software/adzap/',
   adzapRepo: 'https://github.com/ShinojJerald/AdZap',
-  adzapDownload: 'https://github.com/ShinojJerald/AdZap/releases/download/v1.2.0/adzap-1.2.0.zip',
+  adzapDownload: 'https://chromewebstore.google.com/detail/pjbchfbicicekcgoaakdephmgkfmddga', // Chrome Web Store listing
   // Fill these in to have them appear in the hero and Contact section automatically.
   linkedin: 'https://www.linkedin.com/in/shinoj-kumar-2a1670176',
   email: '',
@@ -284,9 +284,9 @@ export const projects: Project[] = [
     id: 'tunekadal',
     kind: 'product',
     title: 'TuneKadal',
-    blurb: 'An ocean of Tamil radio — 244+ stations on Android and iOS, plus a website.',
+    blurb: 'An ocean of Tamil radio — 250+ stations on Android and iOS, with Android Auto, plus a website.',
     detail:
-      'A Tamil radio app and website I designed and built: station discovery, favourites, lock-screen / background playback, an AI station guide and multiple ocean-inspired themes.',
+      'A Tamil radio app and website I designed and built: station discovery, favourites, lock-screen / background playback, Android Auto on Android, an AI station guide and multiple ocean-inspired themes.',
     tags: ['React Native', 'Expo', 'Android', 'iOS', 'Web'],
     links: [
       { label: 'tunekadal.com', href: 'https://tunekadal.com/' },
@@ -318,7 +318,7 @@ export const projects: Project[] = [
     tags: ['Chrome extension', 'Manifest V3', 'JavaScript', 'EasyList'],
     links: [
       { label: 'Product page', href: 'https://tunekadal.com/software/adzap/' },
-      { label: 'Download', href: 'https://github.com/ShinojJerald/AdZap/releases/download/v1.2.0/adzap-1.2.0.zip' },
+      { label: 'Add to Chrome', href: 'https://chromewebstore.google.com/detail/pjbchfbicicekcgoaakdephmgkfmddga' },
       { label: 'GitHub', href: 'https://github.com/ShinojJerald/AdZap' },
     ],
     anchor: '#adzap',
@@ -450,7 +450,7 @@ export const certifications: Certification[] = [
   { name: 'Responsive Web Design', issuer: 'freeCodeCamp', area: 'web' },
 ];
 
-/* ── TUNEKADAL (verified against tunekadal.com) ─────────────────────────────── */
+/* ── TUNEKADAL (verified against tunekadal.com; Android Auto from the Google Play listing, 2026-10-29) ── */
 export const tunekadal = {
   name: 'TuneKadal',
   tagline: 'Ocean of Tamil Tunes',
@@ -458,7 +458,7 @@ export const tunekadal = {
   intro:
     'A listening experience built around Tamil radio — gathering stations from across the world into one calm, ocean-themed app.',
   stats: [
-    { value: 244, suffix: '+', label: 'Tamil radio stations' },
+    { value: 250, suffix: '+', label: 'Tamil radio stations' },
     { value: 2, suffix: '', label: 'Platforms — Android & iOS' },
   ],
   stack: ['React Native', 'Expo', 'Android', 'iOS', 'Web'],
@@ -466,6 +466,7 @@ export const tunekadal = {
     { title: 'Station discovery', body: 'Explore Tamil stations from around the world.' },
     { title: 'Favourites', body: 'Keep the stations you love one tap away.' },
     { title: 'Lock-screen playback', body: 'Keep listening in the background and control it from the lock screen.' },
+    { title: 'Android Auto', body: 'On Android, browse stations, favourites and recents on the car screen, and play by voice.' },
     { title: 'AI station guide', body: 'A guide that helps you find something to listen to.' },
     { title: 'Visual themes', body: 'Multiple themes, all rooted in the ocean.' },
     { title: 'Web presence', body: 'A companion website at tunekadal.com.' },
@@ -513,7 +514,7 @@ export const foldex = {
   credit: { label: 'Filee', href: 'https://github.com/KnifeLemon/Filee', author: 'KnifeLemon' },
 };
 
-/* ── ADZAP (verified against the v1.2.0 package and its code) ──────────────── */
+/* ── ADZAP (verified against the v1.3.0 store build and its code) ──────────── */
 export const adzap = {
   name: 'AdZap',
   intro:

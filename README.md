@@ -61,11 +61,11 @@
 
 <p align="center">
   <a href="https://tunekadal.com/">
-    <img src="./assets/readme/tunekadal.svg" alt="TuneKadal — Ocean of Tamil Tunes. 244+ Tamil radio stations on Android and iOS." width="100%" />
+    <img src="./assets/readme/tunekadal.svg" alt="TuneKadal — Ocean of Tamil Tunes. 250+ Tamil radio stations on Android and iOS." width="100%" />
   </a>
 </p>
 
-**[TuneKadal](https://tunekadal.com/)** — a Tamil radio app and website I designed and built. 244+ Tamil radio stations with station discovery, favourites, lock-screen / background playback, an AI station guide and multiple ocean-inspired visual themes. Built with React Native and Expo, available on Android and iOS · [tunekadal.com](https://tunekadal.com/) · [App Store](https://apps.apple.com/app/id6773931613)
+**[TuneKadal](https://tunekadal.com/)** — a Tamil radio app and website I designed and built. 250+ Tamil radio stations with station discovery, favourites, lock-screen / background playback, Android Auto on Android, an AI station guide and multiple ocean-inspired visual themes. Built with React Native and Expo, available on Android and iOS · [tunekadal.com](https://tunekadal.com/) · [App Store](https://apps.apple.com/app/id6773931613)
 
 <p align="center">
   <a href="https://github.com/ShinojJerald/Foldex">
@@ -81,7 +81,7 @@
   </a>
 </p>
 
-**[AdZap](https://tunekadal.com/software/adzap/)** — a Chrome extension for per-site ad blocking. Ads and trackers are blocked only on the websites you zap, every other site is left alone, and unzapping a site (or pressing Alt+Z) turns it straight back off. 113,670 rules compiled from EasyList and EasyPrivacy, applied by Chrome's built-in blocking engine; the extension makes no network requests of its own · [Product page](https://tunekadal.com/software/adzap/) · [Download v1.2.0](https://github.com/ShinojJerald/AdZap/releases/latest)
+**[AdZap](https://tunekadal.com/software/adzap/)** — a Chrome extension for per-site ad blocking. Ads and trackers are blocked only on the websites you zap, every other site is left alone, and unzapping a site (or pressing Alt+Z) turns it straight back off. 113,670 rules compiled from EasyList and EasyPrivacy, applied by Chrome's built-in blocking engine; the extension makes no network requests of its own · [Product page](https://tunekadal.com/software/adzap/) · [Add to Chrome](https://chromewebstore.google.com/detail/pjbchfbicicekcgoaakdephmgkfmddga)
 
 **[Interactive 3D portfolio](https://shinojjerald.github.io/ShinojJerald/)** — this repository. An "underwater data observatory" built with React, TypeScript and Three.js: custom GLSL shaders, scroll-driven camera, device-aware rendering, reduced-motion support and a full no-WebGL fallback. Source in [`/portfolio`](./portfolio).
 

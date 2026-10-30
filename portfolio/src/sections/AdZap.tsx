@@ -76,7 +76,7 @@ export function AdZap({ webgl }: { webgl: boolean }) {
             <span>
               Ad<span className="az-grad">Zap</span>
             </span>
-            <span className="az-badge">v1.2 · Chrome</span>
+            <span className="az-badge">v1.3 · Chrome</span>
           </h2>
 
           <p className="az-claim">
@@ -154,8 +154,8 @@ export function AdZap({ webgl }: { webgl: boolean }) {
 
           <div className="az-ctas">
             <a className="btn btn-primary btn-az" href={links.adzapDownload} target="_blank" rel="noreferrer">
-              <span>Download for Chrome</span>
-              <span aria-hidden="true">↓</span>
+              <span>Add to Chrome</span>
+              <span aria-hidden="true">↗</span>
             </a>
             <a className="btn btn-ghost" href={links.adzap} target="_blank" rel="noreferrer">
               <span>Product page</span>
@@ -168,7 +168,7 @@ export function AdZap({ webgl }: { webgl: boolean }) {
           </div>
 
           <p className="az-credit">
-            Free · installs unpacked in Chrome’s Developer mode, not from the Chrome Web Store. Blocking rules are compiled from EasyList and EasyPrivacy by{' '}
+            Free · in the Chrome Web Store, published by TuneKadal. Blocking rules are compiled from EasyList and EasyPrivacy by{' '}
             <a href={adzap.credit.href} target="_blank" rel="noreferrer">
               {adzap.credit.label}
             </a>
